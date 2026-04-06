@@ -1019,10 +1019,12 @@ nav a:hover::after {
    GALLERY POLAROID LIMPIO
 ══════════════════════════════════════ */
 
-.story-gallery-section {
+  .story-gallery-section {
   background: var(--petal);
   padding: 90px 24px;
+  overflow: hidden;
 }
+
 
 .story-gallery-wrap {
   max-width: 760px;
@@ -1030,7 +1032,6 @@ nav a:hover::after {
   text-align: center;
 }
 
-/* CONTENEDOR */
 .polaroid-stack {
   position: relative;
   width: min(100%, 420px);
@@ -1038,7 +1039,6 @@ nav a:hover::after {
   margin: 50px auto 30px;
 }
 
-/* BASE POLAROID */
 .polaroid-card {
   position: absolute;
   background: #fff;
@@ -1047,11 +1047,11 @@ nav a:hover::after {
   border-radius: 2px;
 }
 
-/* IMAGEN */
 .polaroid-frame {
   width: 100%;
   height: 100%;
   overflow: hidden;
+  position: relative;
 }
 
 .polaroid-frame img {
@@ -1061,27 +1061,43 @@ nav a:hover::after {
   display: block;
 }
 
-/* FOTO GRANDE (ABAJO) */
+/* FOTO GRANDE ATRÁS / LA QUE CAMBIA */
 .polaroid-main {
   width: 320px;
   height: 440px;
   top: 0;
-  left: 50%;
+  left: 42%;
   transform: translateX(-50%) rotate(-6deg);
   z-index: 1;
 }
 
-/* FOTO PEQUEÑA ENCIMA */
+.polaroid-main img {
+  transition: transform 0.45s ease, opacity 0.45s ease;
+  will-change: transform, opacity;
+}
+
+/* FOTO PEQUEÑA ENCIMA / FIJA */
 .polaroid-overlay {
   width: 240px;
   height: 300px;
   bottom: 0;
-  left: 52%;
+  left: 58%;
   transform: translateX(-50%) rotate(5deg);
   z-index: 3;
 }
 
-/* RESPONSIVE */
+/* sale hacia la izquierda */
+.polaroid-main img.slide-out {
+  transform: translateX(-70px);
+  opacity: 0;
+}
+
+/* entra desde la derecha */
+.polaroid-main img.slide-in {
+  transform: translateX(70px);
+  opacity: 0;
+}
+
 @media (max-width: 768px) {
   .polaroid-stack {
     height: 520px;
@@ -1090,49 +1106,34 @@ nav a:hover::after {
   .polaroid-main {
     width: 260px;
     height: 360px;
+    left: 43%;
   }
 
   .polaroid-overlay {
     width: 200px;
     height: 250px;
-    left: 55%;
+    left: 60%;
   }
 }
 
 @media (max-width: 480px) {
   .polaroid-stack {
+    max-width: 300px;
     height: 470px;
   }
 
   .polaroid-main {
     width: 230px;
     height: 320px;
+    left: 43%;
   }
 
   .polaroid-overlay {
     width: 180px;
     height: 230px;
+    left: 61%;
   }
 }
-
-
-/* ANIMACIÓN SLIDE */
-.polaroid-frame img {
-  transition: transform 0.4s ease, opacity 0.4s ease;
-}
-
-/* sale hacia la izquierda */
-.slide-out {
-  transform: translateX(-60px) rotate(-4deg);
-  opacity: 0;
-}
-
-/* entra desde la derecha */
-.slide-in {
-  transform: translateX(60px) rotate(4deg);
-  opacity: 0;
-}
-
 
 
 
@@ -1480,8 +1481,7 @@ nav a:hover::after {
 </section>
 
 
-
-  <section id="gallery" class="story-gallery-section">
+<section id="gallery" class="story-gallery-section">
   <div class="reveal story-gallery-wrap">
     <span class="section-tag">Nuestra historia</span>
     <h2 class="section-title">Momentos Juntos</h2>
@@ -1489,23 +1489,25 @@ nav a:hover::after {
 
     <div class="polaroid-stack">
 
-      <!-- FOTO GRANDE ATRÁS / FIJA -->
+      <!-- FOTO GRANDE ATRÁS / CAMBIA -->
       <div class="polaroid-card polaroid-main">
         <div class="polaroid-frame">
-          <img src="img/KARINA_5.jpg" alt="Foto principal fija">
+          <img id="main-polaroid-img" src="img/KARINA_5.jpg" alt="Foto principal dinámica">
         </div>
       </div>
 
-      <!-- FOTO PEQUEÑA ENCIMA / CAMBIA -->
+      <!-- FOTO PEQUEÑA ENCIMA / FIJA -->
       <div class="polaroid-card polaroid-overlay">
         <div class="polaroid-frame">
-          <img id="main-polaroid-img" src="img/KARINA_6.jpg" alt="Foto secundaria dinámica">
+          <img src="img/KARINA_6.jpg" alt="Foto secundaria fija">
         </div>
       </div>
 
     </div>
   </div>
 </section>
+
+  
 
 <!-- ═══ LOCATION ═══ -->
 <section id="map-section" style="background:var(--white);max-width:100%;padding:70px 24px;">
@@ -1731,51 +1733,48 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 
-  // ── GALERÍA POLAROID AUTO SLIDE ──
-  const mainPolaroidImg = document.getElementById("main-polaroid-img");
+// ── GALERÍA POLAROID AUTO SLIDE ──
+const mainPolaroidImg = document.getElementById("main-polaroid-img");
 
-  if (mainPolaroidImg) {
-    const polaroidImages = [
-      "img/KARINA_6.jpg",
-      "img/KARINA_4.jpg",
-      "img/KARINA_3.jpg",
-      "img/KARINA_2.jpg"
-    ];
+if (mainPolaroidImg) {
+  const polaroidImages = [
+    "img/KARINA_5.jpg",
+    "img/KARINA_4.jpg",
+    "img/KARINA_3.jpg",
+    "img/KARINA_2.jpg"
+  ];
 
-    let currentPolaroidIndex = 0;
-    let isAnimatingPolaroid = false;
+  let currentPolaroidIndex = 0;
+  let isAnimatingPolaroid = false;
 
-    function changePolaroidImage() {
-      if (isAnimatingPolaroid) return;
-      isAnimatingPolaroid = true;
+  function changePolaroidImage() {
+    if (isAnimatingPolaroid) return;
+    isAnimatingPolaroid = true;
 
-      // sale a la izquierda
-      mainPolaroidImg.classList.remove("slide-in");
-      mainPolaroidImg.classList.add("slide-out");
+    mainPolaroidImg.classList.remove("slide-in");
+    mainPolaroidImg.classList.add("slide-out");
+
+    setTimeout(() => {
+      currentPolaroidIndex = (currentPolaroidIndex + 1) % polaroidImages.length;
+      mainPolaroidImg.src = polaroidImages[currentPolaroidIndex];
+
+      mainPolaroidImg.classList.remove("slide-out");
+      mainPolaroidImg.classList.add("slide-in");
+
+      requestAnimationFrame(() => {
+        requestAnimationFrame(() => {
+          mainPolaroidImg.classList.remove("slide-in");
+        });
+      });
 
       setTimeout(() => {
-        currentPolaroidIndex = (currentPolaroidIndex + 1) % polaroidImages.length;
-        mainPolaroidImg.src = polaroidImages[currentPolaroidIndex];
-
-        // entra desde la derecha
-        mainPolaroidImg.classList.remove("slide-out");
-        mainPolaroidImg.classList.add("slide-in");
-
-        requestAnimationFrame(() => {
-          requestAnimationFrame(() => {
-            mainPolaroidImg.classList.remove("slide-in");
-          });
-        });
-
-        setTimeout(() => {
-          isAnimatingPolaroid = false;
-        }, 450);
+        isAnimatingPolaroid = false;
       }, 450);
-    }
-
-    setInterval(changePolaroidImage, 3000);
+    }, 450);
   }
 
+  setInterval(changePolaroidImage, 3000);
+}
 
   
 </script>
