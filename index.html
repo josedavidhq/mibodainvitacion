@@ -1114,6 +1114,28 @@ nav a:hover::after {
     height: 230px;
   }
 }
+
+
+/* ANIMACIÓN SLIDE */
+.polaroid-frame img {
+  transition: transform 0.4s ease, opacity 0.4s ease;
+}
+
+/* sale hacia la izquierda */
+.slide-out {
+  transform: translateX(-60px) rotate(-4deg);
+  opacity: 0;
+}
+
+/* entra desde la derecha */
+.slide-in {
+  transform: translateX(60px) rotate(4deg);
+  opacity: 0;
+}
+
+
+
+
   
 </style>
 </head>
@@ -1713,31 +1735,51 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 
-  // ── GALERÍA POLAROID ──
-  const mainPolaroidImg = document.getElementById("main-polaroid-img");
-  const thumbButtons = document.querySelectorAll(".gallery-thumb");
+ // ── GALERÍA POLAROID PRO (SLIDE) ──
+const mainPolaroidImg = document.getElementById("main-polaroid-img");
+const thumbButtons = document.querySelectorAll(".gallery-thumb");
 
-  if (mainPolaroidImg && thumbButtons.length) {
-    thumbButtons.forEach((btn) => {
-      btn.addEventListener("click", () => {
-        const newImg = btn.getAttribute("data-img");
-        if (!newImg) return;
+if (mainPolaroidImg && thumbButtons.length) {
 
-        mainPolaroidImg.style.opacity = "0.35";
-        mainPolaroidImg.style.transform = "scale(0.97)";
+  thumbButtons.forEach((btn) => {
+    btn.addEventListener("click", () => {
+
+      const newImg = btn.getAttribute("data-img");
+      if (!newImg || newImg === mainPolaroidImg.src) return;
+
+      // 👉 1. SALE HACIA LA IZQUIERDA
+      mainPolaroidImg.classList.add("slide-out");
+
+      setTimeout(() => {
+
+        // 👉 2. CAMBIO DE IMAGEN
+        mainPolaroidImg.src = newImg;
+
+        // 👉 3. PREPARA ENTRADA DESDE LA DERECHA
+        mainPolaroidImg.classList.remove("slide-out");
+        mainPolaroidImg.classList.add("slide-in");
+
+        // FORZAR REPAINT 💡
+        mainPolaroidImg.offsetHeight;
+
+        // 👉 4. ENTRA AL CENTRO
+        mainPolaroidImg.style.transform = "translateX(0) rotate(-6deg)";
+        mainPolaroidImg.style.opacity = "1";
 
         setTimeout(() => {
-          mainPolaroidImg.src = newImg;
-          mainPolaroidImg.style.opacity = "1";
-          mainPolaroidImg.style.transform = "scale(1)";
-        }, 180);
+          mainPolaroidImg.classList.remove("slide-in");
+        }, 400);
 
-        thumbButtons.forEach((item) => item.classList.remove("active"));
-        btn.classList.add("active");
-      });
+      }, 200);
+
+      // ACTIVO
+      thumbButtons.forEach((item) => item.classList.remove("active"));
+      btn.classList.add("active");
+
     });
-  }
+  });
 
+}
 
 
   
