@@ -1016,14 +1016,12 @@ nav a:hover::after {
 
 
 /* ══════════════════════════════════════
-   GALLERY POLAROID
+   GALLERY POLAROID LIMPIO
 ══════════════════════════════════════ */
 
 .story-gallery-section {
   background: var(--petal);
-  max-width: 100%;
   padding: 90px 24px;
-  overflow: hidden;
 }
 
 .story-gallery-wrap {
@@ -1032,33 +1030,28 @@ nav a:hover::after {
   text-align: center;
 }
 
+/* CONTENEDOR */
 .polaroid-stack {
   position: relative;
   width: min(100%, 420px);
   height: 620px;
-  margin: 42px auto 28px;
+  margin: 50px auto 30px;
 }
 
-/* tarjeta base */
+/* BASE POLAROID */
 .polaroid-card {
   position: absolute;
   background: #fff;
-  padding: 14px 14px 26px;
-  box-shadow: 0 18px 40px rgba(0,0,0,0.16);
+  padding: 14px 14px 28px;
+  box-shadow: 0 20px 50px rgba(0,0,0,0.18);
   border-radius: 2px;
-  transition: transform 0.35s ease, box-shadow 0.35s ease;
 }
 
-.polaroid-card:hover {
-  box-shadow: 0 22px 50px rgba(0,0,0,0.22);
-}
-
-/* marco */
+/* IMAGEN */
 .polaroid-frame {
   width: 100%;
   height: 100%;
   overflow: hidden;
-  background: #f4f4f4;
 }
 
 .polaroid-frame img {
@@ -1068,135 +1061,57 @@ nav a:hover::after {
   display: block;
 }
 
-/* foto superior inclinada */
-.polaroid-top {
-  width: 310px;
-  height: 420px;
+/* FOTO GRANDE (ABAJO) */
+.polaroid-main {
+  width: 320px;
+  height: 440px;
   top: 0;
   left: 50%;
-  z-index: 3;
-  transform: translateX(-50%) rotate(-7deg);
+  transform: translateX(-50%) rotate(-6deg);
+  z-index: 1;
 }
 
-.polaroid-top .polaroid-frame {
-  height: 100%;
-}
-
-.polaroid-top img {
-  transition: opacity 0.3s ease, transform 0.35s ease;
-}
-
-/* foto inferior fija */
-.polaroid-bottom {
+/* FOTO PEQUEÑA ENCIMA */
+.polaroid-overlay {
   width: 240px;
-  height: 310px;
-  bottom: 10px;
+  height: 300px;
+  bottom: 0;
   left: 52%;
-  z-index: 2;
-  transform: translateX(-50%) rotate(4deg);
+  transform: translateX(-50%) rotate(5deg);
+  z-index: 3;
 }
 
-.polaroid-bottom .polaroid-frame {
-  height: 100%;
-}
-
-/* miniaturas */
-.gallery-thumbs {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 10px;
-  margin-top: 10px;
-}
-
-.gallery-thumb {
-  width: 62px;
-  height: 62px;
-  padding: 0;
-  border: 1px solid var(--border);
-  background: #fff;
-  cursor: pointer;
-  overflow: hidden;
-  border-radius: 4px;
-  transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
-}
-
-.gallery-thumb img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  display: block;
-}
-
-.gallery-thumb:hover,
-.gallery-thumb.active {
-  transform: translateY(-2px);
-  border-color: var(--burg);
-  box-shadow: 0 10px 18px rgba(0,0,0,0.12);
-}
-
-.gallery-note {
-  margin-top: 16px;
-  font-size: 11px;
-  color: var(--ink-lt);
-  font-style: italic;
-}
-
-/* tablet */
+/* RESPONSIVE */
 @media (max-width: 768px) {
-  .story-gallery-section {
-    padding: 70px 20px;
-  }
-
   .polaroid-stack {
-    width: 100%;
-    max-width: 340px;
     height: 520px;
-    margin: 34px auto 24px;
   }
 
-  .polaroid-top {
-    width: 255px;
-    height: 350px;
-    transform: translateX(-50%) rotate(-6deg);
+  .polaroid-main {
+    width: 260px;
+    height: 360px;
   }
 
-  .polaroid-bottom {
-    width: 205px;
-    height: 260px;
-    left: 54%;
-    bottom: 8px;
-    transform: translateX(-50%) rotate(4deg);
-  }
-
-  .gallery-thumb {
-    width: 54px;
-    height: 54px;
+  .polaroid-overlay {
+    width: 200px;
+    height: 250px;
+    left: 55%;
   }
 }
 
-/* móvil pequeño */
 @media (max-width: 480px) {
   .polaroid-stack {
-    max-width: 300px;
     height: 470px;
   }
 
-  .polaroid-top {
+  .polaroid-main {
     width: 230px;
     height: 320px;
   }
 
-  .polaroid-bottom {
-    width: 185px;
-    height: 235px;
-    left: 55%;
-    bottom: 6px;
-  }
-
-  .gallery-thumb {
-    width: 50px;
-    height: 50px;
+  .polaroid-overlay {
+    width: 180px;
+    height: 230px;
   }
 }
   
@@ -1545,6 +1460,7 @@ nav a:hover::after {
 
 
   <!-- ═══ GALLERY ═══ -->
+<!-- ═══ GALLERY ═══ -->
 <section id="gallery" class="story-gallery-section">
   <div class="reveal story-gallery-wrap">
     <span class="section-tag">Nuestra historia</span>
@@ -1553,42 +1469,23 @@ nav a:hover::after {
 
     <div class="polaroid-stack">
 
-      <!-- FOTO SUPERIOR / LA QUE CAMBIA -->
-      <div class="polaroid-card polaroid-top">
+      <!-- FOTO GRANDE (FONDO) -->
+      <div class="polaroid-card polaroid-main">
         <div class="polaroid-frame">
-          <img id="main-polaroid-img" src="img/KARINA_6.jpg" alt="Foto principal">
+          <img src="img/KARINA_6.jpg" alt="Foto principal">
         </div>
       </div>
 
-      <!-- FOTO INFERIOR / FIJA -->
-      <div class="polaroid-card polaroid-bottom">
+      <!-- FOTO PEQUEÑA ENCIMA -->
+      <div class="polaroid-card polaroid-overlay">
         <div class="polaroid-frame">
-          <img src="img/KARINA_5.jpg" alt="Foto fija">
+          <img src="img/KARINA_5.jpg" alt="Foto secundaria">
         </div>
       </div>
 
     </div>
 
-    <!-- miniaturas ocultas o visibles para cambiar la de arriba -->
-    <div class="gallery-thumbs">
-      <button class="gallery-thumb active" data-img="img/KARINA_6.jpg" type="button">
-        <img src="img/KARINA_6.jpg" alt="Miniatura 1">
-      </button>
-
-      <button class="gallery-thumb" data-img="img/KARINA_4.jpg" type="button">
-        <img src="img/KARINA_4.jpg" alt="Miniatura 2">
-      </button>
-
-      <button class="gallery-thumb" data-img="img/KARINA_3.jpg" type="button">
-        <img src="img/KARINA_3.jpg" alt="Miniatura 3">
-      </button>
-
-      <button class="gallery-thumb" data-img="img/KARINA_2.jpg" type="button">
-        <img src="img/KARINA_2.jpg" alt="Miniatura 4">
-      </button>
-    </div>
-
-    <p class="gallery-note">* Toca una miniatura para cambiar la foto principal</p>
+    <p class="gallery-note">* Nuestros momentos más especiales</p>
   </div>
 </section>
 
