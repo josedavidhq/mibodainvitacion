@@ -1,0 +1,692 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Mesa de Regalos · Rusvel & Karina</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=Cinzel:wght@400;600&family=Lato:wght@300;400&display=swap" rel="stylesheet"/>
+<style>
+  :root {
+  /* VERDE ELEGANTE */
+  --gold: #6B7D5C;
+  --gold-light: #A3B18A;
+  --gold-pale: #DDE5D8;
+
+  --cream: #F7F7F5;
+  --white: #FFFFFF;
+
+  --ink: #2F2F2F;
+  --ink-light: #6E6E6E;
+
+  --border: rgba(107,125,92,0.25);
+}
+
+  * { margin:0; padding:0; box-sizing:border-box; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--cream);
+    color: var(--ink);
+    font-family: 'Lato', sans-serif;
+    font-weight: 300;
+    min-height: 100vh;
+  }
+
+  /* ── HERO ── */
+  .hero {
+    background:
+      radial-gradient(ellipse 80% 50% at 50% 0%, rgba(229,209,143,0.2) 0%, transparent 70%),
+      var(--cream);
+    padding: 70px 24px 50px;
+    text-align: center;
+    position: relative;
+    border-bottom: 1px solid var(--border);
+  }
+  .hero::before, .hero::after {
+    content: '';
+    position: absolute;
+    width: 120px; height: 120px;
+    border: 1px solid var(--border);
+    pointer-events: none;
+  }
+  .hero::before { top:16px; left:16px; border-right:none; border-bottom:none; }
+  .hero::after  { top:16px; right:16px; border-left:none; border-bottom:none; }
+
+  .hero-tag {
+    font-family: 'Cinzel', serif;
+    font-size: 9px;
+    letter-spacing: 5px;
+    color: var(--gold);
+    text-transform: uppercase;
+    display: block;
+    margin-bottom: 18px;
+    animation: fadeUp 0.8s ease 0.1s both;
+  }
+  .hero-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(38px, 9vw, 64px);
+    font-weight: 300;
+    font-style: italic;
+    color: var(--ink);
+    line-height: 1.1;
+    animation: fadeUp 0.8s ease 0.2s both;
+  }
+  .hero-title span { color: var(--gold); }
+  .hero-sub {
+    margin-top: 16px;
+    font-size: 14px;
+    color: var(--ink-light);
+    line-height: 1.8;
+    max-width: 420px;
+    margin-left: auto;
+    margin-right: auto;
+    animation: fadeUp 0.8s ease 0.35s both;
+  }
+
+  .ornament {
+    display: flex; align-items: center; justify-content: center;
+    gap: 10px; margin: 22px auto; max-width: 260px;
+    animation: fadeUp 0.8s ease 0.3s both;
+  }
+  .ornament .line { flex:1; height:1px; background: linear-gradient(90deg, transparent, var(--gold)); }
+  .ornament .line.r { background: linear-gradient(90deg, var(--gold), transparent); }
+  .ornament .diamond { width:6px; height:6px; background:var(--gold); transform:rotate(45deg); }
+
+  @keyframes fadeUp {
+    from { opacity:0; transform:translateY(16px); }
+    to   { opacity:1; transform:translateY(0); }
+  }
+
+  /* ── BACK LINK ── */
+  .back-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    margin: 28px 28px 0;
+    font-family: 'Cinzel', serif;
+    font-size: 9px;
+    letter-spacing: 3px;
+    color: var(--gold);
+    text-decoration: none;
+    text-transform: uppercase;
+    transition: color 0.3s;
+  }
+  .back-link:hover { color: var(--ink); }
+
+  /* ── TRANSFER SECTION ── */
+  .transfer-section {
+    max-width: 760px;
+    margin: 0 auto;
+    padding: 56px 24px;
+  }
+
+  .section-label {
+    font-family: 'Cinzel', serif;
+    font-size: 9px;
+    letter-spacing: 4px;
+    color: var(--gold);
+    text-transform: uppercase;
+    text-align: center;
+    display: block;
+    margin-bottom: 12px;
+  }
+  .section-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(28px, 6vw, 42px);
+    font-weight: 300;
+    font-style: italic;
+    color: var(--ink);
+    text-align: center;
+    margin-bottom: 8px;
+  }
+  .gold-line {
+    width: 50px; height: 1px;
+    background: linear-gradient(90deg, transparent, var(--gold), transparent);
+    margin: 0 auto 40px;
+  }
+
+  /* ── TRANSFER CARDS ── */
+  .transfer-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+  }
+
+  .transfer-card {
+    background: var(--white);
+    border: 1px solid var(--border);
+    padding: 36px 28px;
+    position: relative;
+    text-align: center;
+    transition: box-shadow 0.3s, transform 0.3s;
+  }
+  .transfer-card::before {
+    content: '';
+    position: absolute; top:0; left:0; right:0; height:2px;
+    background: linear-gradient(90deg, transparent, var(--gold), transparent);
+  }
+  .transfer-card:hover {
+    box-shadow: 0 8px 32px rgba(184,151,58,0.12);
+    transform: translateY(-2px);
+  }
+
+  .bank-logo {
+    font-size: 32px;
+    display: block;
+    margin-bottom: 14px;
+  }
+  .bank-name {
+    font-family: 'Cinzel', serif;
+    font-size: 11px;
+    letter-spacing: 3px;
+    color: var(--gold);
+    text-transform: uppercase;
+    margin-bottom: 20px;
+    display: block;
+  }
+
+  .bank-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 0;
+    border-bottom: 1px solid var(--border);
+    gap: 12px;
+  }
+  .bank-row:last-of-type { border-bottom: none; }
+  .bank-row-label {
+    font-family: 'Cinzel', serif;
+    font-size: 8px;
+    letter-spacing: 2px;
+    color: var(--ink-light);
+    text-transform: uppercase;
+    text-align: left;
+    flex-shrink: 0;
+  }
+  .bank-row-value {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 16px;
+    color: var(--ink);
+    text-align: right;
+    word-break: break-all;
+  }
+
+
+  .bank-logo-img {
+  width: 64px;
+  height: 64px;
+  object-fit: contain;
+  margin-bottom: 14px;
+}
+
+/* centra todo el bloque superior */
+.transfer-card,
+.mobile-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+  .copy-btn {
+    margin-top: 22px;
+    width: 100%;
+    padding: 13px 20px;
+    background: transparent;
+    border: 1px solid var(--gold);
+    font-family: 'Cinzel', serif;
+    font-size: 9px;
+    letter-spacing: 3px;
+    color: var(--gold);
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: background 0.3s, color 0.3s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+  }
+  .copy-btn:hover { background: var(--gold); color: var(--white); }
+  .copy-btn.copied { background: var(--ink); color: var(--white); border-color: var(--ink); }
+
+  /* ── YAPE / PLIN ── */
+  .mobile-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 20px;
+    margin-top: 20px;
+  }
+
+  .mobile-card {
+    background: var(--white);
+    border: 1px solid var(--border);
+    padding: 32px 24px;
+    text-align: center;
+    position: relative;
+    transition: box-shadow 0.3s, transform 0.3s;
+  }
+  .mobile-card::after {
+    content: '';
+    position: absolute; bottom:0; left:0; right:0; height:2px;
+    background: linear-gradient(90deg, transparent, var(--gold), transparent);
+  }
+  .mobile-card:hover {
+    box-shadow: 0 8px 32px rgba(184,151,58,0.12);
+    transform: translateY(-2px);
+  }
+
+  .app-icon { font-size: 36px; display: block; margin-bottom: 12px; }
+  .app-name {
+    font-family: 'Cinzel', serif;
+    font-size: 11px;
+    letter-spacing: 3px;
+    color: var(--gold);
+    display: block;
+    margin-bottom: 16px;
+  }
+  .app-number {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 26px;
+    color: var(--ink);
+    display: block;
+    margin-bottom: 4px;
+  }
+  .app-owner {
+    font-size: 12px;
+    color: var(--ink-light);
+    margin-bottom: 18px;
+    display: block;
+  }
+
+  /* ── NOTE ── */
+  .note-box {
+    max-width: 560px;
+    margin: 48px auto 0;
+    border: 1px solid var(--border);
+    padding: 32px 28px;
+    text-align: center;
+    background: var(--white);
+    position: relative;
+  }
+  .note-box::before {
+    content: '';
+    position: absolute; top:0; left:0; right:0; height:2px;
+    background: linear-gradient(90deg, transparent, var(--gold), transparent);
+  }
+  .note-icon { font-size: 28px; display: block; margin-bottom: 12px; }
+  .note-text {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 18px;
+    color: var(--ink);
+    line-height: 1.7;
+    margin-bottom: 10px;
+  }
+  .note-sub { font-size: 12px; color: var(--ink-light); line-height: 1.8; }
+
+  /* ── FOOTER ── */
+  footer {
+    background: var(--ink);
+    padding: 44px 24px;
+    text-align: center;
+    margin-top: 56px;
+  }
+  footer .f-names {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 26px;
+    font-style: italic;
+    color: var(--gold-light);
+    margin-bottom: 8px;
+  }
+  footer .f-date {
+    font-family: 'Cinzel', serif;
+    font-size: 9px;
+    letter-spacing: 4px;
+    color: rgba(255,255,255,0.35);
+  }
+
+  footer .ornament .line {
+  background: linear-gradient(90deg, transparent, var(--gold-light));
+}
+
+footer .ornament .line.r {
+  background: linear-gradient(90deg, var(--gold-light), transparent);
+}
+
+footer .ornament .diamond {
+  background: var(--gold-light);
+}
+
+  /* ── TOAST ── */
+  #toast {
+    position: fixed; bottom: 32px; left: 50%; transform: translateX(-50%) translateY(20px);
+    background: var(--ink); color: var(--gold-light);
+    font-family: 'Cinzel', serif; font-size: 10px; letter-spacing: 2px;
+    padding: 12px 28px; border: 1px solid var(--gold);
+    opacity: 0; transition: opacity 0.3s, transform 0.3s;
+    pointer-events: none; white-space: nowrap; z-index: 999;
+  }
+  #toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+
+  /* ── REVEAL ── */
+  .reveal { opacity:0; transform:translateY(24px); transition: opacity 0.8s ease, transform 0.8s ease; }
+  .reveal.visible { opacity:1; transform:translateY(0); }
+
+
+
+  .input-regalo {
+  width: 100%;
+  margin-top: 14px;
+  padding: 10px;
+  border: 1px solid var(--border);
+  font-family: 'Lato', sans-serif;
+  font-size: 12px;
+  text-align: center;
+}
+</style>
+</head>
+<body>
+
+<!-- BACK -->
+<a class="back-link" href="index.html">← Volver a la invitación</a>
+ 
+<!-- HERO -->
+<div class="hero">
+  <span class="hero-tag">Rusvel Arbuis Damian Sotelo &amp; Karina Verde Aguirre · 02 Mayo 2026</span>
+  <h1 class="hero-title">Mesa de <span>Regalos</span></h1>
+  <div class="ornament">
+    <div class="line"></div>
+    <div class="diamond"></div>
+    <div class="line r"></div>
+  </div>
+  <p class="hero-sub">
+    Tu presencia es nuestro mayor regalo.<br>
+    Si deseas obsequiarnos algo, puedes hacerlo<br>
+    mediante transferencia bancaria o aplicativo.
+  </p>
+</div>
+
+<!-- TRANSFER SECTION -->
+<div class="transfer-section">
+
+  <!-- TRANSFERENCIAS BANCARIAS -->
+  <span class="section-label reveal">Transferencia Bancaria</span>
+  <h2 class="section-title reveal">Datos de Cuenta</h2>
+  <div class="gold-line reveal"></div>
+
+ <div class="transfer-grid">
+
+  <!-- BCP -->
+  <div class="transfer-card reveal">
+    <img src="bcp.png" class="bank-logo-img">
+    <span class="bank-name">BCP</span>
+
+    <div class="bank-row">
+      <span class="bank-row-label">Titular</span>
+      <span class="bank-row-value">Karina Verde Aguirre</span>
+    </div>
+
+    <div class="bank-row">
+      <span class="bank-row-label">Cuenta BCP Soles</span>
+      <span class="bank-row-value" id="bcp-cuenta">19196084955008</span>
+    </div>
+
+    <div class="bank-row">
+      <span class="bank-row-label">CCI</span>
+      <span class="bank-row-value" id="bcp-cci">00219119608495500856</span>
+    </div>
+
+    <div class="bank-row">
+      <span class="bank-row-label">Moneda</span>
+      <span class="bank-row-value">Soles (S/)</span>
+    </div>
+
+    <button class="copy-btn" onclick="copyData('bcp')">
+      <span>📋</span> Copiar datos BCP
+    </button>
+  </div>
+
+  <!-- SCOTIABANK -->
+  <div class="transfer-card reveal">
+    <img src="escotiabank2.jpg" class="bank-logo-img">
+    <span class="bank-name">Scotiabank</span>
+
+    <div class="bank-row">
+      <span class="bank-row-label">Titular</span>
+      <span class="bank-row-value">Karina Verde Aguirre</span>
+    </div>
+
+    <div class="bank-row">
+      <span class="bank-row-label">Cuenta Ahorro Soles</span>
+      <span class="bank-row-value" id="scotia-cuenta">8500401420</span>
+    </div>
+
+    <div class="bank-row">
+      <span class="bank-row-label">CCI</span>
+      <span class="bank-row-value" id="scotia-cci">00917020850040142024</span>
+    </div>
+
+    <div class="bank-row">
+      <span class="bank-row-label">Moneda</span>
+      <span class="bank-row-value">Soles (S/)</span>
+    </div>
+
+    <button class="copy-btn" onclick="copyData('scotia')">
+      <span>📋</span> Copiar datos Scotiabank
+    </button>
+  </div>
+
+</div>
+
+  <!-- YAPE / PLIN -->
+  <div style="margin-top:52px;">
+    <span class="section-label reveal">Pago Rápido</span>
+    <h2 class="section-title reveal">Yape o Plin</h2>
+    <div class="gold-line reveal"></div>
+
+    <div class="mobile-grid">
+
+      <div class="mobile-card reveal">
+     
+        <img src="yape.png" class="bank-logo-img">
+        <span class="app-name">Yape</span>
+        <span class="app-number" id="yape-num">+51 924 182 415</span>
+        <span class="app-owner">Karina Verde Aguirre</span>
+        <button class="copy-btn" onclick="copyText('+51924182415', this)">
+          <span>📋</span> Copiar número
+        </button>
+      </div>
+
+      <div class="mobile-card reveal">
+       
+        <img src="plin.png" class="bank-logo-img">
+        <span class="app-name">Plin</span>
+        <span class="app-number" id="plin-num">+51 924 182 415</span>
+        <span class="app-owner">Karina Verde Aguirre</span>
+        <button class="copy-btn" onclick="copyText('+51924182415', this)">
+          <span>📋</span> Copiar número
+        </button>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- NOTA -->
+  <div class="note-box reveal">
+    <span class="note-icon">💌</span>
+    <p class="note-text">"Su cariño y buenos deseos<br>son lo que más valoramos."</p>
+    <p class="note-sub">
+      Después de realizar tu transferencia puedes enviarnos<br>
+      el comprobante al WhatsApp <strong>+51 924 182 415</strong><br>
+      con tu nombre para agradecerte personalmente. 🤍
+    </p>
+  </div>
+
+
+
+  <!-- LISTA DE REGALOS -->
+<!-- LISTA DE REGALOS -->
+<div id="lista-regalos" class="transfer-grid"></div>
+  
+  <span class="section-label reveal">Lista de Regalos</span>
+  <h2 class="section-title reveal">Sugerencias Especiales</h2>
+  <div class="gold-line reveal"></div>
+
+  <div class="transfer-grid">
+
+    <!-- REGALO 1 -->
+    <div class="transfer-card reveal">
+      <span class="bank-logo">🛏</span>
+      <span class="bank-name">Sábanas Premium</span>
+      <p>Juego de sábanas elegantes para nuestro hogar.</p>
+
+      <input type="text" placeholder="Tu nombre" id="nombre1" class="input-regalo">
+
+      <button class="copy-btn"
+        onclick="reservar('Juego de sábanas premium', 'nombre1', this)">
+        Reservar regalo
+      </button>
+    </div>
+
+    <!-- REGALO 2 -->
+    <div class="transfer-card reveal">
+      <span class="bank-logo">🍽</span>
+      <span class="bank-name">Licuadora</span>
+      <p>Ideal para nuestra cocina diaria.</p>
+
+      <input type="text" placeholder="Tu nombre" id="nombre2" class="input-regalo">
+
+      <button class="copy-btn"
+        onclick="reservar('Licuadora', 'nombre2', this)">
+        Reservar regalo
+      </button>
+    </div>
+
+    <!-- REGALO 3 -->
+    <div class="transfer-card reveal">
+      <span class="bank-logo">☕</span>
+      <span class="bank-name">Cafetera</span>
+      <p>Para nuestros desayunos juntos.</p>
+
+      <input type="text" placeholder="Tu nombre" id="nombre3" class="input-regalo">
+
+      <button class="copy-btn"
+        onclick="reservar('Cafetera', 'nombre3', this)">
+        Reservar regalo
+      </button>
+    </div>
+
+  </div>
+  
+</div>
+
+</div>
+
+<!-- FOOTER -->
+<!-- FOOTER -->
+<footer>
+  <div class="ornament" style="margin-bottom:20px;">
+    <div class="line" style="background:linear-gradient(90deg,transparent,var(--gold-light));"></div>
+    <div class="diamond" style="background:var(--gold-light);"></div>
+    <div class="line r" style="background:linear-gradient(90deg,var(--gold-light),transparent);"></div>
+  </div>
+
+  <p class="f-names">Rusvel Arbuis Damian Sotelo &amp; Karina Verde Aguirre</p>
+  <p class="f-date" style="margin-top:8px;">02 · MAYO · 2026 · LIMA</p>
+</footer>
+
+<div id="toast">✓ Copiado al portapapeles</div>
+
+<script>
+// Scroll reveal
+const observer = new IntersectionObserver(entries => {
+  entries.forEach((e, i) => {
+    if (e.isIntersecting) {
+      setTimeout(() => e.target.classList.add('visible'), 80);
+    }
+  });
+}, { threshold: 0.1 });
+document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+// Copy functions
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = '✓ ' + msg;
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 2400);
+}
+
+function copyText(text, btn) {
+  navigator.clipboard.writeText(text).then(() => {
+    const orig = btn.innerHTML;
+    btn.classList.add('copied');
+    btn.innerHTML = '<span>✓</span> ¡Copiado!';
+    showToast('Número copiado');
+    setTimeout(() => { btn.classList.remove('copied'); btn.innerHTML = orig; }, 2000);
+  });
+}
+
+function copyData(bank) {
+  let text = '';
+  const btn = event.currentTarget;
+
+  if (bank === 'bcp') {
+    text = `BCP · Karina Verde Aguirre
+Cuenta: 19196084955008
+CCI: 00219119608495500856
+Moneda: Soles`;
+  } 
+  else if (bank === 'scotia') {
+    text = `Scotiabank · Karina Verde Aguirre
+Cuenta: 8500401420
+CCI: 00917020850040142024
+Moneda: Soles`;
+  }
+
+  navigator.clipboard.writeText(text).then(() => {
+    const orig = btn.innerHTML;
+    btn.classList.add('copied');
+    btn.innerHTML = '<span>✓</span> ¡Datos copiados!';
+    showToast('Datos bancarios copiados');
+
+    setTimeout(() => {
+      btn.classList.remove('copied');
+      btn.innerHTML = orig;
+    }, 2000);
+  });
+}
+
+
+
+
+function reservar(regalo, inputId, btn) {
+  const nombre = document.getElementById(inputId).value;
+
+  if (!nombre) {
+    alert("Ingresa tu nombre");
+    return;
+  }
+
+  fetch("https://script.google.com/macros/s/AKfycbwe9RpunG_NzKoocRdPxsrxmbVOdV4TL16MLnc2iWjA/exec", {
+    method: "POST",
+    body: JSON.stringify({
+      regalo: regalo,
+      nombre: nombre
+    })
+  })
+  .then(res => res.text())
+  .then(resp => {
+
+    if (resp === "YA_RESERVADO") {
+      alert("Este regalo ya fue reservado 😢");
+      return;
+    }
+
+    btn.innerHTML = "✓ Reservado";
+    btn.style.background = "#2F2F2F";
+    btn.style.color = "white";
+    btn.disabled = true;
+  });
+}
+</script>
+</body>
+</html>
