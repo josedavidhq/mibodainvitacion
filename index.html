@@ -1481,9 +1481,7 @@ nav a:hover::after {
 
 
 
-  <!-- ═══ GALLERY ═══ -->
-<!-- ═══ GALLERY ═══ -->
-<section id="gallery" class="story-gallery-section">
+  <section id="gallery" class="story-gallery-section">
   <div class="reveal story-gallery-wrap">
     <span class="section-tag">Nuestra historia</span>
     <h2 class="section-title">Momentos Juntos</h2>
@@ -1491,23 +1489,21 @@ nav a:hover::after {
 
     <div class="polaroid-stack">
 
-      <!-- FOTO GRANDE (FONDO) -->
+      <!-- FOTO GRANDE ATRÁS / FIJA -->
       <div class="polaroid-card polaroid-main">
         <div class="polaroid-frame">
-          <img src="img/KARINA_6.jpg" alt="Foto principal">
+          <img src="img/KARINA_5.jpg" alt="Foto principal fija">
         </div>
       </div>
 
-      <!-- FOTO PEQUEÑA ENCIMA -->
+      <!-- FOTO PEQUEÑA ENCIMA / CAMBIA -->
       <div class="polaroid-card polaroid-overlay">
         <div class="polaroid-frame">
-          <img src="img/KARINA_5.jpg" alt="Foto secundaria">
+          <img id="main-polaroid-img" src="img/KARINA_6.jpg" alt="Foto secundaria dinámica">
         </div>
       </div>
 
     </div>
-
-    <p class="gallery-note">* Nuestros momentos más especiales</p>
   </div>
 </section>
 
@@ -1735,51 +1731,50 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 
- // ── GALERÍA POLAROID PRO (SLIDE) ──
-const mainPolaroidImg = document.getElementById("main-polaroid-img");
-const thumbButtons = document.querySelectorAll(".gallery-thumb");
+  // ── GALERÍA POLAROID AUTO SLIDE ──
+  const mainPolaroidImg = document.getElementById("main-polaroid-img");
 
-if (mainPolaroidImg && thumbButtons.length) {
+  if (mainPolaroidImg) {
+    const polaroidImages = [
+      "img/KARINA_6.jpg",
+      "img/KARINA_4.jpg",
+      "img/KARINA_3.jpg",
+      "img/KARINA_2.jpg"
+    ];
 
-  thumbButtons.forEach((btn) => {
-    btn.addEventListener("click", () => {
+    let currentPolaroidIndex = 0;
+    let isAnimatingPolaroid = false;
 
-      const newImg = btn.getAttribute("data-img");
-      if (!newImg || newImg === mainPolaroidImg.src) return;
+    function changePolaroidImage() {
+      if (isAnimatingPolaroid) return;
+      isAnimatingPolaroid = true;
 
-      // 👉 1. SALE HACIA LA IZQUIERDA
+      // sale a la izquierda
+      mainPolaroidImg.classList.remove("slide-in");
       mainPolaroidImg.classList.add("slide-out");
 
       setTimeout(() => {
+        currentPolaroidIndex = (currentPolaroidIndex + 1) % polaroidImages.length;
+        mainPolaroidImg.src = polaroidImages[currentPolaroidIndex];
 
-        // 👉 2. CAMBIO DE IMAGEN
-        mainPolaroidImg.src = newImg;
-
-        // 👉 3. PREPARA ENTRADA DESDE LA DERECHA
+        // entra desde la derecha
         mainPolaroidImg.classList.remove("slide-out");
         mainPolaroidImg.classList.add("slide-in");
 
-        // FORZAR REPAINT 💡
-        mainPolaroidImg.offsetHeight;
-
-        // 👉 4. ENTRA AL CENTRO
-        mainPolaroidImg.style.transform = "translateX(0) rotate(-6deg)";
-        mainPolaroidImg.style.opacity = "1";
+        requestAnimationFrame(() => {
+          requestAnimationFrame(() => {
+            mainPolaroidImg.classList.remove("slide-in");
+          });
+        });
 
         setTimeout(() => {
-          mainPolaroidImg.classList.remove("slide-in");
-        }, 400);
+          isAnimatingPolaroid = false;
+        }, 450);
+      }, 450);
+    }
 
-      }, 200);
-
-      // ACTIVO
-      thumbButtons.forEach((item) => item.classList.remove("active"));
-      btn.classList.add("active");
-
-    });
-  });
-
-}
+    setInterval(changePolaroidImage, 3000);
+  }
 
 
   
