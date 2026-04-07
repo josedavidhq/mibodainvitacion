@@ -1018,21 +1018,51 @@ nav a:hover::after {
 /* ══════════════════════════════════════
    GALLERY POLAROID LIMPIO
 ══════════════════════════════════════ */
-
+/*
   .story-gallery-section {
   background: var(--petal);
   padding: 90px 24px;
   overflow: hidden;
+}*/
+
+  .story-gallery-section {
+  position: relative;
+  padding: 90px 24px;
+  overflow: hidden;
+  background-image: url("img/KARINA_4.jpg");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
 }
 
 
+  .gallery-section-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(255,255,255,0.78);
+  backdrop-filter: blur(1px);
+  z-index: 1;
+}
+
+  
+/*
 .story-gallery-wrap {
+  max-width: 760px;
+  margin: 0 auto;
+  text-align: center;
+}*/
+
+
+  .story-gallery-wrap {
+  position: relative;
+  z-index: 2;
   max-width: 760px;
   margin: 0 auto;
   text-align: center;
 }
 
-  
+
+
 
 .polaroid-stack {
   position: relative;
@@ -1138,95 +1168,148 @@ nav a:hover::after {
 }
 
 
-
-
-
-
-
-
-
-  /* ══════════════════════════════════════
-   FONDO CON FRASE (HERO STYLE)
-══════════════════════════════════════ */
-
-
-/* CONTENEDOR DEL FONDO */
-.gallery-bg-quote {
+.gallery-tag,
+.gallery-title {
   position: relative;
-  width: 100%;
-  height: 260px;
-  margin-bottom: 60px;
-  overflow: hidden;
-}
-
-/* IMAGEN DE FONDO */
-.gallery-bg-quote::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background-image: url("img/KARINA_4.jpg");
-  background-size: cover;
-  background-position: center;
-  transform: scale(1.05);
-  z-index: 1;
-}
-
-/* OVERLAY OSCURO SUAVE */
-.gallery-bg-overlay {
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(
-    to bottom,
-    rgba(0,0,0,0.35),
-    rgba(0,0,0,0.55)
-  );
   z-index: 2;
 }
 
-/* TEXTO ELEGANTE */
-.gallery-bg-text {
+.polaroid-stack {
+  position: relative;
+  width: min(100%, 420px);
+  height: 620px;
+  margin: 50px auto 36px;
+}
+
+.polaroid-card {
   position: absolute;
-  inset: 0;
+  background: #fff;
+  padding: 14px 14px 28px;
+  box-shadow: 0 20px 50px rgba(0,0,0,0.18);
+  border-radius: 2px;
+}
+
+.polaroid-frame {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  position: relative;
+}
+
+.polaroid-frame img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* FOTO GRANDE ATRÁS / LA QUE CAMBIA */
+.polaroid-main {
+  width: 320px;
+  height: 440px;
+  top: 0;
+  left: 42%;
+  transform: translateX(-50%) rotate(-6deg);
+  z-index: 1;
+}
+
+.polaroid-main img {
+  transition: transform 0.45s ease, opacity 0.45s ease;
+  will-change: transform, opacity;
+}
+
+/* FOTO PEQUEÑA ENCIMA / FIJA */
+.polaroid-overlay {
+  width: 240px;
+  height: 300px;
+  bottom: 0;
+  left: 58%;
+  transform: translateX(-50%) rotate(5deg);
   z-index: 3;
+}
 
-  display: flex;
-  align-items: center;
-  justify-content: center;
+/* animación de la grande */
+.polaroid-main img.slide-out {
+  transform: translateX(-70px);
+  opacity: 0;
+}
 
-  text-align: center;
-  padding: 0 20px;
+.polaroid-main img.slide-in {
+  transform: translateX(70px);
+  opacity: 0;
+}
 
+/* FRASE DEBAJO DE LAS FOTOS */
+.gallery-quote {
+  margin-top: 18px;
   font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(28px, 4vw, 42px);
   font-style: italic;
   font-weight: 300;
-
-  font-size: clamp(22px, 4vw, 36px);
-  line-height: 1.4;
-
-  color: rgba(255,255,255,0.9);
-  letter-spacing: 0.5px;
+  line-height: 1.35;
+  color: rgba(79, 94, 68, 0.92);
+  text-align: center;
+  max-width: 620px;
+  margin-left: auto;
+  margin-right: auto;
+  text-shadow: 0 1px 1px rgba(255,255,255,0.5);
 }
 
-/* ✨ EFECTO SUTIL DE BRILLO */
-.gallery-bg-text::after {
-  content: "";
-  position: absolute;
-  width: 60%;
-  height: 1px;
-  bottom: 20px;
-  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
-}
-
-/* RESPONSIVE */
 @media (max-width: 768px) {
-  .gallery-bg-quote {
-    height: 200px;
+  .story-gallery-section {
+    padding: 70px 20px;
   }
 
-  .gallery-bg-text {
-    font-size: 20px;
+  .polaroid-stack {
+    height: 520px;
+  }
+
+  .polaroid-main {
+    width: 260px;
+    height: 360px;
+    left: 43%;
+  }
+
+  .polaroid-overlay {
+    width: 200px;
+    height: 250px;
+    left: 60%;
+  }
+
+  .gallery-quote {
+    font-size: 24px;
+    line-height: 1.4;
   }
 }
+
+@media (max-width: 480px) {
+  .polaroid-stack {
+    max-width: 300px;
+    height: 470px;
+  }
+
+  .polaroid-main {
+    width: 230px;
+    height: 320px;
+    left: 43%;
+  }
+
+  .polaroid-overlay {
+    width: 180px;
+    height: 230px;
+    left: 61%;
+  }
+
+  .gallery-quote {
+    font-size: 21px;
+  }
+}
+
+
+
+
+
+
 
   
 </style>
@@ -1571,22 +1654,13 @@ nav a:hover::after {
   </div>
 </section>
 
-
+<!-- FOTOS -->
 <section id="gallery" class="story-gallery-section">
+  <div class="gallery-section-overlay"></div>
 
-    <!-- 🔥 FONDO CON FRASE -->
-    <div class="gallery-bg-quote">
-      <div class="gallery-bg-overlay"></div>
-      <p class="gallery-bg-text">
-        Nuestro camino se cruzó para escribir<br>
-        una sola historia…
-      </p>
-    </div>
-
-  
   <div class="reveal story-gallery-wrap">
-    <span class="section-tag">Nuestra historia</span>
-    <h2 class="section-title">Momentos Juntos</h2>
+    <span class="section-tag gallery-tag">Nuestra historia</span>
+    <h2 class="section-title gallery-title">Momentos Juntos</h2>
     <div class="rose-line"></div>
 
     <div class="polaroid-stack">
@@ -1606,6 +1680,11 @@ nav a:hover::after {
       </div>
 
     </div>
+
+    <p class="gallery-quote">
+      Nuestro camino se cruzó para escribir<br>
+      una sola historia…
+    </p>
   </div>
 </section>
 
