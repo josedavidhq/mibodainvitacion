@@ -1039,12 +1039,12 @@ nav a:hover::after {
   .gallery-section-overlay {
   position: absolute;
   inset: 0;
-  background: rgba(255,255,255,0.78);
+  background: rgba(255,255,255,0.45);
   backdrop-filter: blur(1px);
   z-index: 1;
 }
 
-  
+ 
 /*
 .story-gallery-wrap {
   max-width: 760px;
@@ -1241,18 +1241,28 @@ nav a:hover::after {
 
 /* FRASE DEBAJO DE LAS FOTOS */
 .gallery-quote {
-  margin-top: 18px;
-  font-family: 'Cormorant Garamond', serif;
-  font-size: clamp(28px, 4vw, 42px);
+  margin-top: 26px;
+
+  font-family: 'Playfair Display', serif; /* 🔥 más elegante tipo título */
+  font-size: clamp(36px, 5vw, 60px); /* 🔥 GRANDE como título */
   font-style: italic;
-  font-weight: 300;
-  line-height: 1.35;
-  color: rgba(79, 94, 68, 0.92);
+  font-weight: 500;
+
+  line-height: 1.2;
+  letter-spacing: -0.5px;
+
+  color: var(--burg-dk);
+
   text-align: center;
-  max-width: 620px;
+  max-width: 720px;
   margin-left: auto;
   margin-right: auto;
-  text-shadow: 0 1px 1px rgba(255,255,255,0.5);
+
+  /*text-shadow: 0 2px 6px rgba(255,255,255,0.4);*/
+
+  text-shadow:
+    0 2px 8px rgba(255,255,255,0.6),
+    0 4px 18px rgba(0,0,0,0.08);
 }
 
 @media (max-width: 768px) {
@@ -1307,7 +1317,12 @@ nav a:hover::after {
 
 
 
-
+.gallery-tag {
+  font-size: 11px;
+  letter-spacing: 6px;
+  font-weight: 700; /* 🔥 negrita */
+  color: var(--burg-dk);
+}
 
 
 
