@@ -7,19 +7,17 @@
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=Cinzel:wght@400;600&family=Lato:wght@300;400&display=swap" rel="stylesheet"/>
 <style>
   :root {
-  /* VERDE ELEGANTE */
-  --gold: #6B7D5C;
-  --gold-light: #A3B18A;
-  --gold-pale: #DDE5D8;
-
-  --cream: #F7F7F5;
-  --white: #FFFFFF;
-
-  --ink: #2F2F2F;
-  --ink-light: #6E6E6E;
-
-  --border: rgba(107,125,92,0.25);
-}
+    --gold: #6B7D5C;
+    --gold-light: #A3B18A;
+    --gold-pale: #DDE5D8;
+    --cream: #F7F7F5;
+    --white: #FFFFFF;
+    --ink: #2F2F2F;
+    --ink-light: #6E6E6E;
+    --border: rgba(107,125,92,0.25);
+    --reserved-bg: #fff8f7;
+    --reserved-red: #c0392b;
+  }
 
   * { margin:0; padding:0; box-sizing:border-box; }
   html { scroll-behavior: smooth; }
@@ -32,7 +30,6 @@
     min-height: 100vh;
   }
 
-  /* ── HERO ── */
   .hero {
     background:
       radial-gradient(ellipse 80% 50% at 50% 0%, rgba(229,209,143,0.2) 0%, transparent 70%),
@@ -42,15 +39,29 @@
     position: relative;
     border-bottom: 1px solid var(--border);
   }
+
   .hero::before, .hero::after {
     content: '';
     position: absolute;
-    width: 120px; height: 120px;
+    width: 120px;
+    height: 120px;
     border: 1px solid var(--border);
     pointer-events: none;
   }
-  .hero::before { top:16px; left:16px; border-right:none; border-bottom:none; }
-  .hero::after  { top:16px; right:16px; border-left:none; border-bottom:none; }
+
+  .hero::before {
+    top: 16px;
+    left: 16px;
+    border-right: none;
+    border-bottom: none;
+  }
+
+  .hero::after  {
+    top: 16px;
+    right: 16px;
+    border-left: none;
+    border-bottom: none;
+  }
 
   .hero-tag {
     font-family: 'Cinzel', serif;
@@ -62,6 +73,7 @@
     margin-bottom: 18px;
     animation: fadeUp 0.8s ease 0.1s both;
   }
+
   .hero-title {
     font-family: 'Cormorant Garamond', serif;
     font-size: clamp(38px, 9vw, 64px);
@@ -71,33 +83,58 @@
     line-height: 1.1;
     animation: fadeUp 0.8s ease 0.2s both;
   }
+
   .hero-title span { color: var(--gold); }
+
   .hero-sub {
     margin-top: 16px;
     font-size: 14px;
     color: var(--ink-light);
     line-height: 1.8;
-    max-width: 420px;
+    max-width: 620px;
     margin-left: auto;
     margin-right: auto;
     animation: fadeUp 0.8s ease 0.35s both;
   }
 
   .ornament {
-    display: flex; align-items: center; justify-content: center;
-    gap: 10px; margin: 22px auto; max-width: 260px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    margin: 22px auto;
+    max-width: 260px;
     animation: fadeUp 0.8s ease 0.3s both;
   }
-  .ornament .line { flex:1; height:1px; background: linear-gradient(90deg, transparent, var(--gold)); }
-  .ornament .line.r { background: linear-gradient(90deg, var(--gold), transparent); }
-  .ornament .diamond { width:6px; height:6px; background:var(--gold); transform:rotate(45deg); }
 
-  @keyframes fadeUp {
-    from { opacity:0; transform:translateY(16px); }
-    to   { opacity:1; transform:translateY(0); }
+  .ornament .line {
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--gold));
   }
 
-  /* ── BACK LINK ── */
+  .ornament .line.r {
+    background: linear-gradient(90deg, var(--gold), transparent);
+  }
+
+  .ornament .diamond {
+    width: 6px;
+    height: 6px;
+    background: var(--gold);
+    transform: rotate(45deg);
+  }
+
+  @keyframes fadeUp {
+    from {
+      opacity: 0;
+      transform: translateY(16px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
   .back-link {
     display: inline-flex;
     align-items: center;
@@ -111,11 +148,11 @@
     text-transform: uppercase;
     transition: color 0.3s;
   }
+
   .back-link:hover { color: var(--ink); }
 
-  /* ── TRANSFER SECTION ── */
   .transfer-section {
-    max-width: 760px;
+    max-width: 980px;
     margin: 0 auto;
     padding: 56px 24px;
   }
@@ -130,6 +167,7 @@
     display: block;
     margin-bottom: 12px;
   }
+
   .section-title {
     font-family: 'Cormorant Garamond', serif;
     font-size: clamp(28px, 6vw, 42px);
@@ -139,17 +177,25 @@
     text-align: center;
     margin-bottom: 8px;
   }
+
   .gold-line {
-    width: 50px; height: 1px;
+    width: 50px;
+    height: 1px;
     background: linear-gradient(90deg, transparent, var(--gold), transparent);
     margin: 0 auto 40px;
   }
 
-  /* ── TRANSFER CARDS ── */
   .transfer-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
     gap: 20px;
+  }
+
+  .transfer-card,
+  .mobile-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
   }
 
   .transfer-card {
@@ -159,12 +205,17 @@
     position: relative;
     text-align: center;
     transition: box-shadow 0.3s, transform 0.3s;
+    overflow: hidden;
   }
+
   .transfer-card::before {
     content: '';
-    position: absolute; top:0; left:0; right:0; height:2px;
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 2px;
     background: linear-gradient(90deg, transparent, var(--gold), transparent);
   }
+
   .transfer-card:hover {
     box-shadow: 0 8px 32px rgba(184,151,58,0.12);
     transform: translateY(-2px);
@@ -175,6 +226,7 @@
     display: block;
     margin-bottom: 14px;
   }
+
   .bank-name {
     font-family: 'Cinzel', serif;
     font-size: 11px;
@@ -189,11 +241,14 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+    width: 100%;
     padding: 10px 0;
     border-bottom: 1px solid var(--border);
     gap: 12px;
   }
+
   .bank-row:last-of-type { border-bottom: none; }
+
   .bank-row-label {
     font-family: 'Cinzel', serif;
     font-size: 8px;
@@ -203,6 +258,7 @@
     text-align: left;
     flex-shrink: 0;
   }
+
   .bank-row-value {
     font-family: 'Cormorant Garamond', serif;
     font-size: 16px;
@@ -211,21 +267,12 @@
     word-break: break-all;
   }
 
-
   .bank-logo-img {
-  width: 64px;
-  height: 64px;
-  object-fit: contain;
-  margin-bottom: 14px;
-}
-
-/* centra todo el bloque superior */
-.transfer-card,
-.mobile-card {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
+    width: 64px;
+    height: 64px;
+    object-fit: contain;
+    margin-bottom: 14px;
+  }
 
   .copy-btn {
     margin-top: 22px;
@@ -244,11 +291,20 @@
     align-items: center;
     justify-content: center;
     gap: 8px;
+    text-decoration: none;
   }
-  .copy-btn:hover { background: var(--gold); color: var(--white); }
-  .copy-btn.copied { background: var(--ink); color: var(--white); border-color: var(--ink); }
 
-  /* ── YAPE / PLIN ── */
+  .copy-btn:hover {
+    background: var(--gold);
+    color: var(--white);
+  }
+
+  .copy-btn.copied {
+    background: var(--ink);
+    color: var(--white);
+    border-color: var(--ink);
+  }
+
   .mobile-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
@@ -264,17 +320,20 @@
     position: relative;
     transition: box-shadow 0.3s, transform 0.3s;
   }
+
   .mobile-card::after {
     content: '';
-    position: absolute; bottom:0; left:0; right:0; height:2px;
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 2px;
     background: linear-gradient(90deg, transparent, var(--gold), transparent);
   }
+
   .mobile-card:hover {
     box-shadow: 0 8px 32px rgba(184,151,58,0.12);
     transform: translateY(-2px);
   }
 
-  .app-icon { font-size: 36px; display: block; margin-bottom: 12px; }
   .app-name {
     font-family: 'Cinzel', serif;
     font-size: 11px;
@@ -283,6 +342,7 @@
     display: block;
     margin-bottom: 16px;
   }
+
   .app-number {
     font-family: 'Cormorant Garamond', serif;
     font-size: 26px;
@@ -290,6 +350,7 @@
     display: block;
     margin-bottom: 4px;
   }
+
   .app-owner {
     font-size: 12px;
     color: var(--ink-light);
@@ -297,7 +358,6 @@
     display: block;
   }
 
-  /* ── NOTE ── */
   .note-box {
     max-width: 560px;
     margin: 48px auto 0;
@@ -307,12 +367,21 @@
     background: var(--white);
     position: relative;
   }
+
   .note-box::before {
     content: '';
-    position: absolute; top:0; left:0; right:0; height:2px;
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 2px;
     background: linear-gradient(90deg, transparent, var(--gold), transparent);
   }
-  .note-icon { font-size: 28px; display: block; margin-bottom: 12px; }
+
+  .note-icon {
+    font-size: 28px;
+    display: block;
+    margin-bottom: 12px;
+  }
+
   .note-text {
     font-family: 'Cormorant Garamond', serif;
     font-style: italic;
@@ -321,15 +390,179 @@
     line-height: 1.7;
     margin-bottom: 10px;
   }
-  .note-sub { font-size: 12px; color: var(--ink-light); line-height: 1.8; }
 
-  /* ── FOOTER ── */
+  .note-sub {
+    font-size: 12px;
+    color: var(--ink-light);
+    line-height: 1.8;
+  }
+
+  /* RANDOM GIFT */
+  .gift-random-wrap {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    margin-top: 10px;
+  }
+
+  .gift-card {
+    width: 100%;
+    max-width: 430px;
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 22px;
+    overflow: hidden;
+    position: relative;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.04);
+    transition: transform .3s ease, box-shadow .3s ease;
+  }
+
+  .gift-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 16px 38px rgba(0,0,0,0.08);
+  }
+
+  .gift-card.reserved {
+    background: var(--reserved-bg);
+  }
+
+  .gift-top {
+    position: relative;
+    padding: 18px 18px 0;
+  }
+
+  .gift-photo {
+    width: 100%;
+    height: 240px;
+    object-fit: cover;
+    border-radius: 18px;
+    display: block;
+    background: #f3f3f3;
+  }
+
+  .gift-heart {
+    position: absolute;
+    left: 18px;
+    bottom: 12px;
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    background: rgba(255,255,255,.92);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    box-shadow: 0 4px 14px rgba(0,0,0,.08);
+  }
+
+  .gift-ribbon {
+    position: absolute;
+    top: 18px;
+    right: -56px;
+    background: var(--reserved-red);
+    color: white;
+    padding: 8px 64px;
+    transform: rotate(45deg);
+    font-size: 10px;
+    font-family: 'Cinzel', serif;
+    letter-spacing: 1px;
+    box-shadow: 0 2px 10px rgba(0,0,0,.15);
+    z-index: 3;
+  }
+
+  .gift-body {
+    padding: 18px 18px 22px;
+    text-align: center;
+  }
+
+  .gift-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 32px;
+    color: var(--ink);
+    line-height: 1.1;
+    margin-bottom: 8px;
+  }
+
+  .gift-meta {
+    font-size: 12px;
+    color: var(--ink-light);
+    line-height: 1.7;
+    margin-bottom: 14px;
+  }
+
+  .gift-links {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    flex-wrap: wrap;
+    margin-bottom: 14px;
+  }
+
+  .gift-link {
+    border: 1px solid var(--gold);
+    color: var(--gold);
+    text-decoration: none;
+    padding: 8px 12px;
+    border-radius: 999px;
+    font-size: 11px;
+    letter-spacing: 1px;
+    transition: .25s ease;
+  }
+
+  .gift-link:hover {
+    background: var(--gold);
+    color: white;
+  }
+
+  .gift-input {
+    width: 100%;
+    margin-top: 10px;
+    margin-bottom: 12px;
+    padding: 12px 14px;
+    border-radius: 999px;
+    border: 1px solid var(--border);
+    outline: none;
+    font-size: 13px;
+    text-align: center;
+    background: #fff;
+  }
+
+  .gift-btn {
+    width: 100%;
+    border: 1px solid var(--gold);
+    background: transparent;
+    color: var(--gold);
+    padding: 12px 16px;
+    border-radius: 999px;
+    font-family: 'Cinzel', serif;
+    font-size: 10px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: .25s ease;
+  }
+
+  .gift-btn:hover {
+    background: var(--gold);
+    color: white;
+  }
+
+  .gift-reserved {
+    color: #b03a2e;
+    font-size: 13px;
+    margin-top: 10px;
+    line-height: 1.7;
+  }
+
   footer {
     background: var(--ink);
     padding: 44px 24px;
     text-align: center;
     margin-top: 56px;
+    width: 100%;
+    max-width: none;
   }
+
   footer .f-names {
     font-family: 'Cormorant Garamond', serif;
     font-size: 26px;
@@ -337,6 +570,7 @@
     color: var(--gold-light);
     margin-bottom: 8px;
   }
+
   footer .f-date {
     font-family: 'Cinzel', serif;
     font-size: 9px;
@@ -345,323 +579,132 @@
   }
 
   footer .ornament .line {
-  background: linear-gradient(90deg, transparent, var(--gold-light));
-}
+    background: linear-gradient(90deg, transparent, var(--gold-light));
+  }
 
-footer .ornament .line.r {
-  background: linear-gradient(90deg, var(--gold-light), transparent);
-}
+  footer .ornament .line.r {
+    background: linear-gradient(90deg, var(--gold-light), transparent);
+  }
 
-footer .ornament .diamond {
-  background: var(--gold-light);
-}
+  footer .ornament .diamond {
+    background: var(--gold-light);
+  }
 
-  /* ── TOAST ── */
   #toast {
-    position: fixed; bottom: 32px; left: 50%; transform: translateX(-50%) translateY(20px);
-    background: var(--ink); color: var(--gold-light);
-    font-family: 'Cinzel', serif; font-size: 10px; letter-spacing: 2px;
-    padding: 12px 28px; border: 1px solid var(--gold);
-    opacity: 0; transition: opacity 0.3s, transform 0.3s;
-    pointer-events: none; white-space: nowrap; z-index: 999;
-  }
-  #toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
-
-  /* ── REVEAL ── */
-  .reveal { opacity:0; transform:translateY(24px); transition: opacity 0.8s ease, transform 0.8s ease; }
-  .reveal.visible { opacity:1; transform:translateY(0); }
-
-
-
-  .input-regalo {
-  width: 100%;
-  margin-top: 14px;
-  padding: 10px;
-  border: 1px solid var(--border);
-  font-family: 'Lato', sans-serif;
-  font-size: 12px;
-  text-align: center;
-}
-
-
-
-
-.ribbon {
-  position: absolute;
-  top: 18px;
-  right: -58px;
-  background: #c0392b;
-  color: #fff;
-  padding: 8px 70px;
-  transform: rotate(45deg);
-  font-size: 10px;
-  font-family: 'Cinzel', serif;
-  letter-spacing: 1px;
-  z-index: 5;
-  box-shadow: 0 2px 10px rgba(0,0,0,0.15);
-}
-
-.transfer-card {
-  overflow: hidden;
-}
-
-#modal {
-  position: fixed;
-  inset: 0;
-  background: rgba(0,0,0,0.55);
-  display: none;
-  align-items: center;
-  justify-content: center;
-  z-index: 9999;
-  padding: 20px;
-}
-
-.modal-box {
-  background: #fff;
-  max-width: 420px;
-  width: 100%;
-  border-radius: 16px;
-  padding: 28px 24px;
-  text-align: center;
-  box-shadow: 0 15px 40px rgba(0,0,0,0.18);
-  animation: fadeInScale .25s ease;
-}
-
-.modal-box h3 {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: 30px;
-  font-weight: 500;
-  color: var(--ink);
-  margin-bottom: 10px;
-}
-
-.modal-box p {
-  color: var(--ink-light);
-  font-size: 14px;
-  line-height: 1.7;
-}
-
-.modal-btn {
-  margin-top: 18px;
-  padding: 11px 22px;
-  border: 1px solid var(--gold);
-  background: transparent;
-  color: var(--gold);
-  font-family: 'Cinzel', serif;
-  font-size: 10px;
-  letter-spacing: 2px;
-  text-transform: uppercase;
-  cursor: pointer;
-}
-
-.modal-btn:hover {
-  background: var(--gold);
-  color: #fff;
-}
-
-@keyframes fadeInScale {
-  from {
+    position: fixed;
+    bottom: 32px;
+    left: 50%;
+    transform: translateX(-50%) translateY(20px);
+    background: var(--ink);
+    color: var(--gold-light);
+    font-family: 'Cinzel', serif;
+    font-size: 10px;
+    letter-spacing: 2px;
+    padding: 12px 28px;
+    border: 1px solid var(--gold);
     opacity: 0;
-    transform: scale(.92);
+    transition: opacity 0.3s, transform 0.3s;
+    pointer-events: none;
+    white-space: nowrap;
+    z-index: 999;
   }
-  to {
+
+  #toast.show {
     opacity: 1;
-    transform: scale(1);
+    transform: translateX(-50%) translateY(0);
   }
-}
 
-
-
-
-
-
-
-.gift-showcase {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-  gap: 26px;
-  margin-top: 10px;
-}
-
-.gift-card {
-  background: var(--white);
-  border: 1px solid var(--border);
-  border-radius: 22px;
-  overflow: hidden;
-  position: relative;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.04);
-  transition: transform .3s ease, box-shadow .3s ease;
-}
-
-.gift-card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 16px 38px rgba(0,0,0,0.08);
-}
-
-.gift-top {
-  position: relative;
-  padding: 18px 18px 0;
-}
-
-.gift-photo {
-  width: 100%;
-  height: 220px;
-  object-fit: cover;
-  border-radius: 18px;
-  display: block;
-  background: #f3f3f3;
-}
-
-.gift-body {
-  padding: 18px 18px 22px;
-  text-align: center;
-}
-
-.gift-title {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: 30px;
-  color: var(--ink);
-  line-height: 1.1;
-  margin-bottom: 8px;
-}
-
-.gift-meta {
-  font-size: 12px;
-  color: var(--ink-light);
-  line-height: 1.7;
-  margin-bottom: 14px;
-}
-
-.gift-links {
-  display: flex;
-  justify-content: center;
-  gap: 8px;
-  flex-wrap: wrap;
-  margin-bottom: 14px;
-}
-
-.gift-link {
-  border: 1px solid var(--gold);
-  color: var(--gold);
-  text-decoration: none;
-  padding: 8px 12px;
-  border-radius: 999px;
-  font-size: 11px;
-  letter-spacing: 1px;
-  transition: .25s ease;
-}
-
-.gift-link:hover {
-  background: var(--gold);
-  color: white;
-}
-
-.gift-input {
-  width: 100%;
-  margin-top: 10px;
-  margin-bottom: 12px;
-  padding: 12px 14px;
-  border-radius: 999px;
-  border: 1px solid var(--border);
-  outline: none;
-  font-size: 13px;
-  text-align: center;
-  background: #fff;
-}
-
-.gift-btn {
-  width: 100%;
-  border: 1px solid var(--gold);
-  background: transparent;
-  color: var(--gold);
-  padding: 12px 16px;
-  border-radius: 999px;
-  font-family: 'Cinzel', serif;
-  font-size: 10px;
-  letter-spacing: 2px;
-  text-transform: uppercase;
-  cursor: pointer;
-  transition: .25s ease;
-}
-
-.gift-btn:hover {
-  background: var(--gold);
-  color: white;
-}
-
-.gift-reserved {
-  color: #b03a2e;
-  font-size: 13px;
-  margin-top: 10px;
-  line-height: 1.7;
-}
-
-.gift-card.reserved {
-  background: #fff8f7;
-}
-
-.gift-ribbon {
-  position: absolute;
-  top: 18px;
-  right: -56px;
-  background: #c0392b;
-  color: white;
-  padding: 8px 64px;
-  transform: rotate(45deg);
-  font-size: 10px;
-  font-family: 'Cinzel', serif;
-  letter-spacing: 1px;
-  box-shadow: 0 2px 10px rgba(0,0,0,.15);
-  z-index: 3;
-}
-
-.gift-heart {
-  position: absolute;
-  left: 18px;
-  bottom: 12px;
-  width: 42px;
-  height: 42px;
-  border-radius: 50%;
-  background: rgba(255,255,255,.92);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 18px;
-  box-shadow: 0 4px 14px rgba(0,0,0,.08);
-}
-
-
-.gift-random-wrap {
-  display: flex;
-  justify-content: center;
-  align-items: stretch;
-  width: 100%;
-}
-
-.gift-random-wrap .gift-card {
-  width: 100%;
-  max-width: 420px;
-}
-
-footer {
-  width: 100%;
-  max-width: none;
-}
-
-@media (max-width: 600px) {
-  .gift-random-wrap .gift-card {
-    max-width: 100%;
+  .reveal {
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity 0.8s ease, transform 0.8s ease;
   }
-}
 
+  .reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  #modal {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.55);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+    padding: 20px;
+  }
+
+  .modal-box {
+    background: #fff;
+    max-width: 420px;
+    width: 100%;
+    border-radius: 16px;
+    padding: 28px 24px;
+    text-align: center;
+    box-shadow: 0 15px 40px rgba(0,0,0,0.18);
+    animation: fadeInScale .25s ease;
+  }
+
+  .modal-box h3 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 30px;
+    font-weight: 500;
+    color: var(--ink);
+    margin-bottom: 10px;
+  }
+
+  .modal-box p {
+    color: var(--ink-light);
+    font-size: 14px;
+    line-height: 1.7;
+  }
+
+  .modal-btn {
+    margin-top: 18px;
+    padding: 11px 22px;
+    border: 1px solid var(--gold);
+    background: transparent;
+    color: var(--gold);
+    font-family: 'Cinzel', serif;
+    font-size: 10px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    cursor: pointer;
+  }
+
+  .modal-btn:hover {
+    background: var(--gold);
+    color: #fff;
+  }
+
+  @keyframes fadeInScale {
+    from {
+      opacity: 0;
+      transform: scale(.92);
+    }
+    to {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+
+  @media (max-width: 640px) {
+    .gift-card {
+      max-width: 100%;
+    }
+
+    .gift-photo {
+      height: 210px;
+    }
+  }
 </style>
 </head>
 <body>
 
-<!-- BACK -->
 <a class="back-link" href="index.html">← Volver a la invitación</a>
- 
-<!-- HERO -->
+
 <div class="hero">
   <span class="hero-tag">Rusvel Arbuis Damian Sotelo &amp; Karina Verde Aguirre · 02 Mayo 2026</span>
   <h1 class="hero-title">Mesa de <span>Regalos</span></h1>
@@ -677,91 +720,82 @@ footer {
   </p>
 </div>
 
-<!-- TRANSFER SECTION -->
 <div class="transfer-section">
 
-  <!-- TRANSFERENCIAS BANCARIAS -->
   <span class="section-label reveal">Transferencia Bancaria</span>
   <h2 class="section-title reveal">Datos de Cuenta</h2>
   <div class="gold-line reveal"></div>
 
- <div class="transfer-grid">
+  <div class="transfer-grid">
+    <div class="transfer-card reveal">
+      <img src="bcp.png" class="bank-logo-img" alt="BCP">
+      <span class="bank-name">BCP</span>
 
-  <!-- BCP -->
-  <div class="transfer-card reveal">
-    <img src="bcp.png" class="bank-logo-img">
-    <span class="bank-name">BCP</span>
+      <div class="bank-row">
+        <span class="bank-row-label">Titular</span>
+        <span class="bank-row-value">Karina Verde Aguirre</span>
+      </div>
 
-    <div class="bank-row">
-      <span class="bank-row-label">Titular</span>
-      <span class="bank-row-value">Karina Verde Aguirre</span>
+      <div class="bank-row">
+        <span class="bank-row-label">Cuenta BCP Soles</span>
+        <span class="bank-row-value">19196084955008</span>
+      </div>
+
+      <div class="bank-row">
+        <span class="bank-row-label">CCI</span>
+        <span class="bank-row-value">00219119608495500856</span>
+      </div>
+
+      <div class="bank-row">
+        <span class="bank-row-label">Moneda</span>
+        <span class="bank-row-value">Soles (S/)</span>
+      </div>
+
+      <button class="copy-btn" onclick="copyData('bcp')">
+        <span>📋</span> Copiar datos BCP
+      </button>
     </div>
 
-    <div class="bank-row">
-      <span class="bank-row-label">Cuenta BCP Soles</span>
-      <span class="bank-row-value" id="bcp-cuenta">19196084955008</span>
-    </div>
+    <div class="transfer-card reveal">
+      <img src="escotiabank2.jpg" class="bank-logo-img" alt="Scotiabank">
+      <span class="bank-name">Scotiabank</span>
 
-    <div class="bank-row">
-      <span class="bank-row-label">CCI</span>
-      <span class="bank-row-value" id="bcp-cci">00219119608495500856</span>
-    </div>
+      <div class="bank-row">
+        <span class="bank-row-label">Titular</span>
+        <span class="bank-row-value">Karina Verde Aguirre</span>
+      </div>
 
-    <div class="bank-row">
-      <span class="bank-row-label">Moneda</span>
-      <span class="bank-row-value">Soles (S/)</span>
-    </div>
+      <div class="bank-row">
+        <span class="bank-row-label">Cuenta Ahorro Soles</span>
+        <span class="bank-row-value">8500401420</span>
+      </div>
 
-    <button class="copy-btn" onclick="copyData('bcp')">
-      <span>📋</span> Copiar datos BCP
-    </button>
+      <div class="bank-row">
+        <span class="bank-row-label">CCI</span>
+        <span class="bank-row-value">00917020850040142024</span>
+      </div>
+
+      <div class="bank-row">
+        <span class="bank-row-label">Moneda</span>
+        <span class="bank-row-value">Soles (S/)</span>
+      </div>
+
+      <button class="copy-btn" onclick="copyData('scotia')">
+        <span>📋</span> Copiar datos Scotiabank
+      </button>
+    </div>
   </div>
 
-  <!-- SCOTIABANK -->
-  <div class="transfer-card reveal">
-    <img src="escotiabank2.jpg" class="bank-logo-img">
-    <span class="bank-name">Scotiabank</span>
-
-    <div class="bank-row">
-      <span class="bank-row-label">Titular</span>
-      <span class="bank-row-value">Karina Verde Aguirre</span>
-    </div>
-
-    <div class="bank-row">
-      <span class="bank-row-label">Cuenta Ahorro Soles</span>
-      <span class="bank-row-value" id="scotia-cuenta">8500401420</span>
-    </div>
-
-    <div class="bank-row">
-      <span class="bank-row-label">CCI</span>
-      <span class="bank-row-value" id="scotia-cci">00917020850040142024</span>
-    </div>
-
-    <div class="bank-row">
-      <span class="bank-row-label">Moneda</span>
-      <span class="bank-row-value">Soles (S/)</span>
-    </div>
-
-    <button class="copy-btn" onclick="copyData('scotia')">
-      <span>📋</span> Copiar datos Scotiabank
-    </button>
-  </div>
-
-</div>
-
-  <!-- YAPE / PLIN -->
   <div style="margin-top:52px;">
     <span class="section-label reveal">Pago Rápido</span>
     <h2 class="section-title reveal">Yape o Plin</h2>
     <div class="gold-line reveal"></div>
 
     <div class="mobile-grid">
-
       <div class="mobile-card reveal">
-     
-        <img src="yape.png" class="bank-logo-img">
+        <img src="yape.png" class="bank-logo-img" alt="Yape">
         <span class="app-name">Yape</span>
-        <span class="app-number" id="yape-num">+51 924 182 415</span>
+        <span class="app-number">+51 924 182 415</span>
         <span class="app-owner">Karina Verde Aguirre</span>
         <button class="copy-btn" onclick="copyText('+51924182415', this)">
           <span>📋</span> Copiar número
@@ -769,20 +803,17 @@ footer {
       </div>
 
       <div class="mobile-card reveal">
-       
-        <img src="plin.png" class="bank-logo-img">
+        <img src="plin.png" class="bank-logo-img" alt="Plin">
         <span class="app-name">Plin</span>
-        <span class="app-number" id="plin-num">+51 924 182 415</span>
+        <span class="app-number">+51 924 182 415</span>
         <span class="app-owner">Karina Verde Aguirre</span>
         <button class="copy-btn" onclick="copyText('+51924182415', this)">
           <span>📋</span> Copiar número
         </button>
       </div>
-
     </div>
   </div>
 
-  <!-- NOTA -->
   <div class="note-box reveal">
     <span class="note-icon">💌</span>
     <p class="note-text">"Su cariño y buenos deseos<br>son lo que más valoramos."</p>
@@ -793,313 +824,36 @@ footer {
     </p>
   </div>
 
-
-
-    <!-- LISTA DE REGALOS -->
   <div style="margin-top:60px;">
     <span class="section-label reveal">Lista de Regalos</span>
     <h2 class="section-title reveal">Sugerencias Especiales</h2>
     <div class="gold-line reveal"></div>
-    <p class="hero-sub" style="max-width:680px; margin-bottom:30px;">
-      Hemos preparado una selección especial de regalos para acompañar el inicio de nuestro hogar.
+    <p class="hero-sub" style="margin-bottom:30px;">
+      Te mostraremos un regalo especial al azar. Si no es el que buscas, puedes ver otro con un clic.
     </p>
 
     <div id="lista-regalos" class="gift-random-wrap"></div>
-      <div style="text-align:center; margin-top:18px;">
-      <button class="gift-btn" onclick="mostrarOtroRegalo()">Ver otro regalo</button>
-    </div>
 
+    <div style="text-align:center; margin-top:18px;">
+      <button class="gift-btn" style="max-width:260px;" onclick="mostrarOtroRegalo()">
+        Ver otro regalo
+      </button>
+    </div>
   </div>
 
+</div>
 
-
-  <!-- FOOTER -->
-  <footer>
-    <div class="ornament" style="margin-bottom:20px;">
-      <div class="line" style="background:linear-gradient(90deg,transparent,var(--gold-light));"></div>
-      <div class="diamond" style="background:var(--gold-light);"></div>
-      <div class="line r" style="background:linear-gradient(90deg,var(--gold-light),transparent);"></div>
-    </div>
-
-    <p class="f-names">Rusvel Arbuis Damian Sotelo &amp; Karina Verde Aguirre</p>
-    <p class="f-date" style="margin-top:8px;">02 · MAYO · 2026 · LIMA</p>
-  </footer>
+<footer>
+  <div class="ornament" style="margin-bottom:20px;">
+    <div class="line"></div>
+    <div class="diamond"></div>
+    <div class="line r"></div>
+  </div>
+  <p class="f-names">Rusvel Arbuis Damian Sotelo &amp; Karina Verde Aguirre</p>
+  <p class="f-date" style="margin-top:8px;">02 · MAYO · 2026 · LIMA</p>
+</footer>
 
 <div id="toast">✓ Copiado al portapapeles</div>
-
-<script>
-
-
-  let regalosCache = [];
-  let ultimoIndice = -1;
-// Scroll reveal
-const observer = new IntersectionObserver(entries => {
-  entries.forEach((e, i) => {
-    if (e.isIntersecting) {
-      setTimeout(() => e.target.classList.add('visible'), 80);
-    }
-  });
-}, { threshold: 0.1 });
-document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
-
-// Copy functions
-function showToast(msg) {
-  const t = document.getElementById('toast');
-  t.textContent = '✓ ' + msg;
-  t.classList.add('show');
-  setTimeout(() => t.classList.remove('show'), 2400);
-}
-
-function copyText(text, btn) {
-  navigator.clipboard.writeText(text).then(() => {
-    const orig = btn.innerHTML;
-    btn.classList.add('copied');
-    btn.innerHTML = '<span>✓</span> ¡Copiado!';
-    showToast('Número copiado');
-    setTimeout(() => { btn.classList.remove('copied'); btn.innerHTML = orig; }, 2000);
-  });
-}
-
-function copyData(bank) {
-  let text = '';
-  const btn = event.currentTarget;
-
-  if (bank === 'bcp') {
-    text = `BCP · Karina Verde Aguirre
-Cuenta: 19196084955008
-CCI: 00219119608495500856
-Moneda: Soles`;
-  } 
-  else if (bank === 'scotia') {
-    text = `Scotiabank · Karina Verde Aguirre
-Cuenta: 8500401420
-CCI: 00917020850040142024
-Moneda: Soles`;
-  }
-
-  navigator.clipboard.writeText(text).then(() => {
-    const orig = btn.innerHTML;
-    btn.classList.add('copied');
-    btn.innerHTML = '<span>✓</span> ¡Datos copiados!';
-    showToast('Datos bancarios copiados');
-
-    setTimeout(() => {
-      btn.classList.remove('copied');
-      btn.innerHTML = orig;
-    }, 2000);
-  });
-}
-
-
-
-function reservar(regalo, inputId, btn) {
-  const input = document.getElementById(inputId);
-  const nombre = input.value.trim();
-
-  if (!nombre) {
-    mostrarModal("Por favor, escribe tu nombre antes de reservar el regalo.");
-    return;
-  }
-
-  btn.disabled = true;
-  btn.innerHTML = "Reservando...";
-
-  fetch("https://script.google.com/macros/s/AKfycbyoJNPNo6z78HokEZ5yY_yk1rlTeOTjp88MWdt-ImiAIdeYH_7mLHTDvYRYsv-UMK7yIA/exec", {
-    method: "POST",
-    mode: "no-cors",
-    headers: {
-      "Content-Type": "application/json"
-    },
-    body: JSON.stringify({
-      regalo: regalo,
-      nombre: nombre
-    })
-  })
-  .then(() => {
-    mostrarModal("🎁 ¡Regalo reservado con éxito!");
-    setTimeout(() => {
-      cerrarModal();
-      cargarRegalos();
-    }, 1800);
-  })
-  .catch(() => {
-    btn.disabled = false;
-    btn.innerHTML = "Reservar regalo";
-    mostrarModal("No se pudo completar la reserva. Inténtalo nuevamente.");
-  });
-}
-
-
-
-
-async function cargarRegalos() {
-  const res = await fetch("https://opensheet.elk.sh/1NZ0znTtxD9yRMIf6bqeyPHWY6RGcnhfDL1SZ4Y9-AwE/Hoja%201");
-  const data = await res.json();
-
-  regalosCache = data.filter(item => (item["Regalo"] || "").trim() !== "");
-  renderRegaloRandom();
-}
-
-
-
-function renderRegaloRandom() {
-  const container = document.getElementById("lista-regalos");
-  container.innerHTML = "";
-
-  if (!regalosCache.length) {
-    container.innerHTML = `
-      <div class="gift-card">
-        <div class="gift-body">
-          <div class="gift-title">No hay regalos disponibles</div>
-          <div class="gift-meta">Vuelve a intentarlo más tarde.</div>
-        </div>
-      </div>
-    `;
-    return;
-  }
-
-  let indice;
-  do {
-    indice = Math.floor(Math.random() * regalosCache.length);
-  } while (regalosCache.length > 1 && indice === ultimoIndice);
-
-  ultimoIndice = indice;
-
-  const item = regalosCache[indice];
-
-  const id = (item["ID"] || "").toString().trim();
-  const regalo = (item["Regalo"] || "").trim();
-  const cantidad = (item["Cantidad"] || "").toString().trim();
-  const nombre = (item["Nombre"] || "").trim();
-  let estado = (item["Estado"] || "").trim().toLowerCase();
-
-  const enlaceA = (item["Enlace A"] || "").trim();
-  const enlaceB = (item["Enlace B"] || "").trim();
-  const enlaceC = (item["Enlace C"] || "").trim();
-
-  if (nombre === "") {
-    estado = "disponible";
-  }
-
-  const reserved = estado === "reservado";
-  const image = imagenPorProducto(regalo);
-  const heart = heartPorProducto(regalo);
-
-  let links = "";
-  if (enlaceA) links += `<a class="gift-link" href="${enlaceA}" target="_blank">Ver opción 1</a>`;
-  if (enlaceB) links += `<a class="gift-link" href="${enlaceB}" target="_blank">Ver opción 2</a>`;
-  if (enlaceC) links += `<a class="gift-link" href="${enlaceC}" target="_blank">Ver opción 3</a>`;
-
-  let ribbon = "";
-  if (reserved && nombre !== "") {
-    ribbon = `<div class="gift-ribbon">Reservado por ${nombre}</div>`;
-  }
-
-  container.innerHTML = `
-    <div class="gift-card ${reserved ? "reserved" : ""} reveal">
-      ${ribbon}
-      <div class="gift-top">
-        <img src="${image}" alt="${regalo}" class="gift-photo">
-        <div class="gift-heart">${heart}</div>
-      </div>
-
-      <div class="gift-body">
-        <div class="gift-title">${regalo}</div>
-        <div class="gift-meta">
-          ${cantidad ? `Cantidad sugerida: ${cantidad}` : "Regalo especial para nuestro hogar"}
-        </div>
-
-        <div class="gift-links">
-          ${links}
-        </div>
-
-        ${
-          reserved
-            ? `<div class="gift-reserved">Este regalo ya fue elegido con cariño por <strong>${nombre}</strong> 💕</div>`
-            : `
-              <input
-                type="text"
-                id="nombre_${id || indice}"
-                class="gift-input"
-                placeholder="Escribe tu nombre"
-              >
-              <button
-                class="gift-btn"
-                onclick="reservar(${JSON.stringify(regalo)}, 'nombre_${id || indice}', this)">
-                Reservar regalo
-              </button>
-            `
-        }
-      </div>
-    </div>
-  `;
-
-  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
-}
-
-function mostrarOtroRegalo() {
-  renderRegaloRandom();
-}
-
-
-
-
-function imagenPorProducto(regalo) {
-  const r = regalo.toLowerCase();
-
-  if (r.includes("cubiertos")) return "img/regalos/cubiertos.jpg";
-  if (r.includes("vasos")) return "img/regalos/vasos.jpg";
-  if (r.includes("tetera")) return "img/regalos/tetera.jpg";
-  if (r.includes("copas")) return "img/regalos/copas.jpg";
-  if (r.includes("bowl")) return "img/regalos/bowl.jpg";
-  if (r.includes("vajilla")) return "img/regalos/vajilla.jpg";
-  if (r.includes("cafetera")) return "img/regalos/cafetera.jpg";
-  if (r.includes("freidora")) return "img/regalos/freidora.jpg";
-  if (r.includes("batidora")) return "img/regalos/batidora.jpg";
-  if (r.includes("utensilios")) return "img/regalos/utensilios.jpg";
-  if (r.includes("escurridor")) return "img/regalos/escurridor.jpg";
-  if (r.includes("plancha")) return "img/regalos/plancha.jpg";
-  if (r.includes("cuchillos")) return "img/regalos/cuchillos.jpg";
-  if (r.includes("licuadora")) return "img/regalos/licuadora.jpg";
-  if (r.includes("olla")) return "img/regalos/olla-arrocera.jpg";
-
-  return "img/regalos/default.jpg";
-}
-
-function heartPorProducto(regalo) {
-  const r = regalo.toLowerCase();
-
-  if (r.includes("cafetera")) return "☕";
-  if (r.includes("copas")) return "🥂";
-  if (r.includes("vajilla")) return "🍽";
-  if (r.includes("licuadora")) return "🥤";
-  if (r.includes("olla")) return "🍚";
-  if (r.includes("cuchillos")) return "🔪";
-  if (r.includes("plancha")) return "✨";
-
-  return "🤍";
-}
-
-
-
-setTimeout(() => {
-  cerrarModal();
-  cargarRegalos();
-}, 1800);
-
-
-
-function mostrarModal(msg) {
-  document.getElementById("modal-text").innerText = msg;
-  document.getElementById("modal").style.display = "flex";
-}
-
-function cerrarModal() {
-  document.getElementById("modal").style.display = "none";
-}
-</script>
-
-
 
 <div id="modal">
   <div class="modal-box">
@@ -1108,5 +862,263 @@ function cerrarModal() {
     <button class="modal-btn" onclick="cerrarModal()">Aceptar</button>
   </div>
 </div>
+
+<script>
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach((e) => {
+      if (e.isIntersecting) {
+        e.target.classList.add('visible');
+      }
+    });
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+  let regalosCache = [];
+  let ultimoIndice = -1;
+
+  function showToast(msg) {
+    const t = document.getElementById('toast');
+    t.textContent = '✓ ' + msg;
+    t.classList.add('show');
+    setTimeout(() => t.classList.remove('show'), 2400);
+  }
+
+  function copyText(text, btn) {
+    navigator.clipboard.writeText(text).then(() => {
+      const orig = btn.innerHTML;
+      btn.classList.add('copied');
+      btn.innerHTML = '<span>✓</span> ¡Copiado!';
+      showToast('Número copiado');
+      setTimeout(() => {
+        btn.classList.remove('copied');
+        btn.innerHTML = orig;
+      }, 2000);
+    });
+  }
+
+  function copyData(bank) {
+    let text = '';
+    const btn = event.currentTarget;
+
+    if (bank === 'bcp') {
+      text = `BCP · Karina Verde Aguirre
+Cuenta: 19196084955008
+CCI: 00219119608495500856
+Moneda: Soles`;
+    } else if (bank === 'scotia') {
+      text = `Scotiabank · Karina Verde Aguirre
+Cuenta: 8500401420
+CCI: 00917020850040142024
+Moneda: Soles`;
+    }
+
+    navigator.clipboard.writeText(text).then(() => {
+      const orig = btn.innerHTML;
+      btn.classList.add('copied');
+      btn.innerHTML = '<span>✓</span> ¡Datos copiados!';
+      showToast('Datos bancarios copiados');
+
+      setTimeout(() => {
+        btn.classList.remove('copied');
+        btn.innerHTML = orig;
+      }, 2000);
+    });
+  }
+
+  function mostrarModal(msg) {
+    document.getElementById("modal-text").innerText = msg;
+    document.getElementById("modal").style.display = "flex";
+  }
+
+  function cerrarModal() {
+    document.getElementById("modal").style.display = "none";
+  }
+
+  function imagenPorProducto(regalo) {
+    const r = regalo.toLowerCase();
+
+    if (r.includes("cubiertos")) return "img/regalos/cubiertos.jpg";
+    if (r.includes("vasos")) return "img/regalos/vasos.jpg";
+    if (r.includes("tetera")) return "img/regalos/tetera.jpg";
+    if (r.includes("copas")) return "img/regalos/copas.jpg";
+    if (r.includes("bowl")) return "img/regalos/bowl.jpg";
+    if (r.includes("vajilla")) return "img/regalos/vajilla.jpg";
+    if (r.includes("cafetera")) return "img/regalos/cafetera.jpg";
+    if (r.includes("freidora")) return "img/regalos/freidora.jpg";
+    if (r.includes("batidora")) return "img/regalos/batidora.jpg";
+    if (r.includes("utensilios")) return "img/regalos/utensilios.jpg";
+    if (r.includes("escurridor")) return "img/regalos/escurridor.jpg";
+    if (r.includes("plancha")) return "img/regalos/plancha.jpg";
+    if (r.includes("cuchillos")) return "img/regalos/cuchillos.jpg";
+    if (r.includes("licuadora")) return "img/regalos/licuadora.jpg";
+    if (r.includes("olla")) return "img/regalos/olla-arrocera.jpg";
+
+    return "img/regalos/default.jpg";
+  }
+
+  function heartPorProducto(regalo) {
+    const r = regalo.toLowerCase();
+
+    if (r.includes("cafetera")) return "☕";
+    if (r.includes("copas")) return "🥂";
+    if (r.includes("vajilla")) return "🍽";
+    if (r.includes("licuadora")) return "🥤";
+    if (r.includes("olla")) return "🍚";
+    if (r.includes("cuchillos")) return "🔪";
+    if (r.includes("plancha")) return "✨";
+
+    return "🤍";
+  }
+
+  function reservar(regalo, inputId, btn) {
+    const input = document.getElementById(inputId);
+    const nombre = input.value.trim();
+
+    if (!nombre) {
+      mostrarModal("Por favor, escribe tu nombre antes de reservar el regalo.");
+      return;
+    }
+
+    btn.disabled = true;
+    btn.innerHTML = "Reservando...";
+
+    fetch("https://script.google.com/macros/s/AKfycbyoJNPNo6z78HokEZ5yY_yk1rlTeOTjp88MWdt-ImiAIdeYH_7mLHTDvYRYsv-UMK7yIA/exec", {
+      method: "POST",
+      mode: "no-cors",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        regalo: regalo,
+        nombre: nombre
+      })
+    })
+    .then(() => {
+      mostrarModal("🎁 ¡Regalo reservado con éxito!");
+      setTimeout(() => {
+        cerrarModal();
+        cargarRegalos();
+      }, 1800);
+    })
+    .catch(() => {
+      btn.disabled = false;
+      btn.innerHTML = "Reservar regalo";
+      mostrarModal("No se pudo completar la reserva. Inténtalo nuevamente.");
+    });
+  }
+
+  async function cargarRegalos() {
+    const res = await fetch("https://opensheet.elk.sh/1NZ0znTtxD9yRMIf6bqeyPHWY6RGcnhfDL1SZ4Y9-AwE/Hoja%201");
+    const data = await res.json();
+
+    regalosCache = data.filter(item => (item["Regalo"] || "").trim() !== "");
+    renderRegaloRandom();
+  }
+
+  function renderRegaloRandom() {
+    const container = document.getElementById("lista-regalos");
+    container.innerHTML = "";
+
+    if (!regalosCache.length) {
+      container.innerHTML = `
+        <div class="gift-card">
+          <div class="gift-body">
+            <div class="gift-title">No hay regalos disponibles</div>
+            <div class="gift-meta">Vuelve a intentarlo más tarde.</div>
+          </div>
+        </div>
+      `;
+      return;
+    }
+
+    let indice;
+    do {
+      indice = Math.floor(Math.random() * regalosCache.length);
+    } while (regalosCache.length > 1 && indice === ultimoIndice);
+
+    ultimoIndice = indice;
+
+    const item = regalosCache[indice];
+
+    const id = (item["ID"] || "").toString().trim();
+    const regalo = (item["Regalo"] || "").trim();
+    const cantidad = (item["Cantidad"] || "").toString().trim();
+    const nombre = (item["Nombre"] || "").trim();
+    let estado = (item["Estado"] || "").trim().toLowerCase();
+
+    const enlaceA = (item["Enlace A"] || "").trim();
+    const enlaceB = (item["Enlace B"] || "").trim();
+    const enlaceC = (item["Enlace C"] || "").trim();
+
+    if (nombre === "") {
+      estado = "disponible";
+    }
+
+    const reserved = estado === "reservado";
+    const image = imagenPorProducto(regalo);
+    const heart = heartPorProducto(regalo);
+
+    let links = "";
+    if (enlaceA) links += `<a class="gift-link" href="${enlaceA}" target="_blank">Ver opción 1</a>`;
+    if (enlaceB) links += `<a class="gift-link" href="${enlaceB}" target="_blank">Ver opción 2</a>`;
+    if (enlaceC) links += `<a class="gift-link" href="${enlaceC}" target="_blank">Ver opción 3</a>`;
+
+    let ribbon = "";
+    if (reserved && nombre !== "") {
+      ribbon = `<div class="gift-ribbon">Reservado por ${nombre}</div>`;
+    }
+
+    container.innerHTML = `
+      <div class="gift-card ${reserved ? "reserved" : ""} reveal">
+        ${ribbon}
+        <div class="gift-top">
+          <img src="${image}" alt="${regalo}" class="gift-photo">
+          <div class="gift-heart">${heart}</div>
+        </div>
+
+        <div class="gift-body">
+          <div class="gift-title">${regalo}</div>
+          <div class="gift-meta">
+            ${cantidad ? `Cantidad sugerida: ${cantidad}` : "Regalo especial para nuestro hogar"}
+          </div>
+
+          <div class="gift-links">
+            ${links}
+          </div>
+
+          ${
+            reserved
+              ? `<div class="gift-reserved">Este regalo ya fue elegido con cariño por <strong>${nombre}</strong> 💕</div>`
+              : `
+                <input
+                  type="text"
+                  id="nombre_${id || indice}"
+                  class="gift-input"
+                  placeholder="Escribe tu nombre"
+                >
+                <button
+                  class="gift-btn"
+                  onclick="reservar(${JSON.stringify(regalo)}, 'nombre_${id || indice}', this)">
+                  Reservar regalo
+                </button>
+              `
+          }
+        </div>
+      </div>
+    `;
+
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+  }
+
+  function mostrarOtroRegalo() {
+    renderRegaloRandom();
+  }
+
+  window.addEventListener("load", () => {
+    cargarRegalos();
+    setInterval(cargarRegalos, 10000);
+  });
+</script>
 </body>
 </html>
