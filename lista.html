@@ -630,6 +630,30 @@ footer .ornament .diamond {
   box-shadow: 0 4px 14px rgba(0,0,0,.08);
 }
 
+
+.gift-random-wrap {
+  display: flex;
+  justify-content: center;
+  align-items: stretch;
+  width: 100%;
+}
+
+.gift-random-wrap .gift-card {
+  width: 100%;
+  max-width: 420px;
+}
+
+footer {
+  width: 100%;
+  max-width: none;
+}
+
+@media (max-width: 600px) {
+  .gift-random-wrap .gift-card {
+    max-width: 100%;
+  }
+}
+
 </style>
 </head>
 <body>
@@ -771,7 +795,7 @@ footer .ornament .diamond {
 
 
 
-  <!-- LISTA DE REGALOS -->
+    <!-- LISTA DE REGALOS -->
   <div style="margin-top:60px;">
     <span class="section-label reveal">Lista de Regalos</span>
     <h2 class="section-title reveal">Sugerencias Especiales</h2>
@@ -780,30 +804,34 @@ footer .ornament .diamond {
       Hemos preparado una selección especial de regalos para acompañar el inicio de nuestro hogar.
     </p>
 
-    <div id="lista-regalos" class="gift-showcase"></div>
+    <div id="lista-regalos" class="gift-random-wrap"></div>
+      <div style="text-align:center; margin-top:18px;">
+      <button class="gift-btn" onclick="mostrarOtroRegalo()">Ver otro regalo</button>
+    </div>
+
   </div>
 
 
 
+  <!-- FOOTER -->
+  <footer>
+    <div class="ornament" style="margin-bottom:20px;">
+      <div class="line" style="background:linear-gradient(90deg,transparent,var(--gold-light));"></div>
+      <div class="diamond" style="background:var(--gold-light);"></div>
+      <div class="line r" style="background:linear-gradient(90deg,var(--gold-light),transparent);"></div>
+    </div>
 
-
-
-<!-- FOOTER -->
-<!-- FOOTER -->
-<footer>
-  <div class="ornament" style="margin-bottom:20px;">
-    <div class="line" style="background:linear-gradient(90deg,transparent,var(--gold-light));"></div>
-    <div class="diamond" style="background:var(--gold-light);"></div>
-    <div class="line r" style="background:linear-gradient(90deg,var(--gold-light),transparent);"></div>
-  </div>
-
-  <p class="f-names">Rusvel Arbuis Damian Sotelo &amp; Karina Verde Aguirre</p>
-  <p class="f-date" style="margin-top:8px;">02 · MAYO · 2026 · LIMA</p>
-</footer>
+    <p class="f-names">Rusvel Arbuis Damian Sotelo &amp; Karina Verde Aguirre</p>
+    <p class="f-date" style="margin-top:8px;">02 · MAYO · 2026 · LIMA</p>
+  </footer>
 
 <div id="toast">✓ Copiado al portapapeles</div>
 
 <script>
+
+
+  let regalosCache = [];
+  let ultimoIndice = -1;
 // Scroll reveal
 const observer = new IntersectionObserver(entries => {
   entries.forEach((e, i) => {
@@ -908,89 +936,110 @@ async function cargarRegalos() {
   const res = await fetch("https://opensheet.elk.sh/1NZ0znTtxD9yRMIf6bqeyPHWY6RGcnhfDL1SZ4Y9-AwE/Hoja%201");
   const data = await res.json();
 
+  regalosCache = data.filter(item => (item["Regalo"] || "").trim() !== "");
+  renderRegaloRandom();
+}
+
+
+
+function renderRegaloRandom() {
   const container = document.getElementById("lista-regalos");
   container.innerHTML = "";
 
-  // Mezcla aleatoria
-  const items = [...data].sort(() => Math.random() - 0.5);
-
-  items.forEach((item, i) => {
-    const id = (item["ID"] || "").toString().trim();
-    const regalo = (item["Regalo"] || "").trim();
-    const cantidad = (item["Cantidad"] || "").toString().trim();
-    const nombre = (item["Nombre"] || "").trim();
-    let estado = (item["Estado"] || "").trim().toLowerCase();
-
-    const enlaceA = (item["Enlace A"] || "").trim();
-    const enlaceB = (item["Enlace B"] || "").trim();
-    const enlaceC = (item["Enlace C"] || "").trim();
-
-    if (!regalo) return;
-
-    // Si no hay nombre, lo tratamos como disponible
-    if (nombre === "") {
-      estado = "disponible";
-    }
-
-    const reserved = estado === "reservado";
-
-    const image = imagenPorProducto(regalo);
-    const heart = heartPorProducto(regalo);
-
-    let links = "";
-    if (enlaceA) links += `<a class="gift-link" href="${enlaceA}" target="_blank">Ver opción 1</a>`;
-    if (enlaceB) links += `<a class="gift-link" href="${enlaceB}" target="_blank">Ver opción 2</a>`;
-    if (enlaceC) links += `<a class="gift-link" href="${enlaceC}" target="_blank">Ver opción 3</a>`;
-
-    let ribbon = "";
-    if (reserved && nombre !== "") {
-      ribbon = `<div class="gift-ribbon">Reservado por ${nombre}</div>`;
-    }
-
-    container.innerHTML += `
-      <div class="gift-card ${reserved ? "reserved" : ""} reveal">
-        ${ribbon}
-        <div class="gift-top">
-          <img src="${image}" alt="${regalo}" class="gift-photo">
-          <div class="gift-heart">${heart}</div>
-        </div>
-
+  if (!regalosCache.length) {
+    container.innerHTML = `
+      <div class="gift-card">
         <div class="gift-body">
-          <div class="gift-title">${regalo}</div>
-          <div class="gift-meta">
-            ${cantidad ? `Cantidad sugerida: ${cantidad}` : "Regalo especial para nuestro hogar"}
-          </div>
-
-          <div class="gift-links">
-            ${links}
-          </div>
-
-          ${
-            reserved
-              ? `<div class="gift-reserved">Este regalo ya fue elegido con cariño por <strong>${nombre}</strong> 💕</div>`
-              : `
-                <input
-                  type="text"
-                  id="nombre_${id || i}"
-                  class="gift-input"
-                  placeholder="Escribe tu nombre"
-                >
-                <button
-                  class="gift-btn"
-                  onclick="reservar(${JSON.stringify(regalo)}, 'nombre_${id || i}', this)">
-                  Reservar regalo
-                </button>
-              `
-          }
+          <div class="gift-title">No hay regalos disponibles</div>
+          <div class="gift-meta">Vuelve a intentarlo más tarde.</div>
         </div>
       </div>
     `;
-  });
+    return;
+  }
+
+  let indice;
+  do {
+    indice = Math.floor(Math.random() * regalosCache.length);
+  } while (regalosCache.length > 1 && indice === ultimoIndice);
+
+  ultimoIndice = indice;
+
+  const item = regalosCache[indice];
+
+  const id = (item["ID"] || "").toString().trim();
+  const regalo = (item["Regalo"] || "").trim();
+  const cantidad = (item["Cantidad"] || "").toString().trim();
+  const nombre = (item["Nombre"] || "").trim();
+  let estado = (item["Estado"] || "").trim().toLowerCase();
+
+  const enlaceA = (item["Enlace A"] || "").trim();
+  const enlaceB = (item["Enlace B"] || "").trim();
+  const enlaceC = (item["Enlace C"] || "").trim();
+
+  if (nombre === "") {
+    estado = "disponible";
+  }
+
+  const reserved = estado === "reservado";
+  const image = imagenPorProducto(regalo);
+  const heart = heartPorProducto(regalo);
+
+  let links = "";
+  if (enlaceA) links += `<a class="gift-link" href="${enlaceA}" target="_blank">Ver opción 1</a>`;
+  if (enlaceB) links += `<a class="gift-link" href="${enlaceB}" target="_blank">Ver opción 2</a>`;
+  if (enlaceC) links += `<a class="gift-link" href="${enlaceC}" target="_blank">Ver opción 3</a>`;
+
+  let ribbon = "";
+  if (reserved && nombre !== "") {
+    ribbon = `<div class="gift-ribbon">Reservado por ${nombre}</div>`;
+  }
+
+  container.innerHTML = `
+    <div class="gift-card ${reserved ? "reserved" : ""} reveal">
+      ${ribbon}
+      <div class="gift-top">
+        <img src="${image}" alt="${regalo}" class="gift-photo">
+        <div class="gift-heart">${heart}</div>
+      </div>
+
+      <div class="gift-body">
+        <div class="gift-title">${regalo}</div>
+        <div class="gift-meta">
+          ${cantidad ? `Cantidad sugerida: ${cantidad}` : "Regalo especial para nuestro hogar"}
+        </div>
+
+        <div class="gift-links">
+          ${links}
+        </div>
+
+        ${
+          reserved
+            ? `<div class="gift-reserved">Este regalo ya fue elegido con cariño por <strong>${nombre}</strong> 💕</div>`
+            : `
+              <input
+                type="text"
+                id="nombre_${id || indice}"
+                class="gift-input"
+                placeholder="Escribe tu nombre"
+              >
+              <button
+                class="gift-btn"
+                onclick="reservar(${JSON.stringify(regalo)}, 'nombre_${id || indice}', this)">
+                Reservar regalo
+              </button>
+            `
+        }
+      </div>
+    </div>
+  `;
 
   document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 }
 
-
+function mostrarOtroRegalo() {
+  renderRegaloRandom();
+}
 
 
 
@@ -1033,11 +1082,10 @@ function heartPorProducto(regalo) {
 
 
 
-
-window.addEventListener("load", () => {
+setTimeout(() => {
+  cerrarModal();
   cargarRegalos();
-  setInterval(cargarRegalos, 10000);
-});
+}, 1800);
 
 
 
