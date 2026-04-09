@@ -839,6 +839,12 @@ function cerrarModal() {
 }
 
 
+
+window.addEventListener("load", () => {
+  cargarRegalos();
+  setInterval(cargarRegalos, 10000);
+});
+
 </script>
 
 
