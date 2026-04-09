@@ -971,145 +971,179 @@ Moneda: Soles`;
     return "🤍";
   }
 
-  function reservar(regalo, inputId, btn) {
-    const input = document.getElementById(inputId);
-    const nombre = input.value.trim();
 
-    if (!nombre) {
-      mostrarModal("Por favor, escribe tu nombre antes de reservar el regalo.");
-      return;
-    }
+  
 
-    btn.disabled = true;
-    btn.innerHTML = "Reservando...";
+function reservar(regalo, inputId, btn) {
+  const input = document.getElementById(inputId);
+  const nombre = input.value.trim();
 
-    fetch("https://script.google.com/macros/s/AKfycbyoJNPNo6z78HokEZ5yY_yk1rlTeOTjp88MWdt-ImiAIdeYH_7mLHTDvYRYsv-UMK7yIA/exec", {
-      method: "POST",
-      mode: "no-cors",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify({
-        regalo: regalo,
-        nombre: nombre
-      })
-    })
-    .then(() => {
-      mostrarModal("🎁 ¡Regalo reservado con éxito!");
-      setTimeout(() => {
-        cerrarModal();
-        cargarRegalos();
-      }, 1800);
-    })
-    .catch(() => {
-      btn.disabled = false;
-      btn.innerHTML = "Reservar regalo";
-      mostrarModal("No se pudo completar la reserva. Inténtalo nuevamente.");
-    });
+  if (!nombre) {
+    mostrarModal("Por favor, escribe tu nombre antes de reservar el regalo.");
+    return;
   }
 
-  async function cargarRegalos() {
-    const res = await fetch("https://opensheet.elk.sh/1NZ0znTtxD9yRMIf6bqeyPHWY6RGcnhfDL1SZ4Y9-AwE/Hoja%201");
-    const data = await res.json();
+  btn.disabled = true;
+  btn.innerHTML = "Reservando...";
 
-    regalosCache = data.filter(item => (item["Regalo"] || "").trim() !== "");
-    renderRegaloRandom();
-  }
+  fetch("https://script.google.com/macros/s/AKfycbyoJNPNo6z78HokEZ5yY_yk1rlTeOTjp88MWdt-ImiAIdeYH_7mLHTDvYRYsv-UMK7yIA/exec", {
+    method: "POST",
+    mode: "no-cors",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify({
+      regalo: regalo,
+      nombre: nombre
+    })
+  })
+  .then(() => {
+    mostrarModal("🎁 ¡Regalo reservado con éxito!");
+    setTimeout(() => {
+      cerrarModal();
+      cargarRegalos();
+    }, 1800);
+  })
+  .catch(() => {
+    btn.disabled = false;
+    btn.innerHTML = "Reservar regalo";
+    mostrarModal("No se pudo completar la reserva. Inténtalo nuevamente.");
+  });
+}
+
+
+async function cargarRegalos() {
+  const res = await fetch("https://opensheet.elk.sh/1NZ0znTtxD9yRMIf6bqeyPHWY6RGcnhfDL1SZ4Y9-AwE/Hoja%201");
+  const data = await res.json();
+
+  regalosCache = data.filter(item => (item["Regalo"] || "").trim() !== "");
+  renderRegaloRandom();
+}
+
+
+
+
+
+
+
+
+
+
+  function escapeHtml(text) {
+  return String(text)
+    .replace(/&/g, "&amp;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#39;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;");
+}
 
   function renderRegaloRandom() {
-    const container = document.getElementById("lista-regalos");
-    container.innerHTML = "";
+  const container = document.getElementById("lista-regalos");
+  container.innerHTML = "";
 
-    if (!regalosCache.length) {
-      container.innerHTML = `
-        <div class="gift-card">
-          <div class="gift-body">
-            <div class="gift-title">No hay regalos disponibles</div>
-            <div class="gift-meta">Vuelve a intentarlo más tarde.</div>
-          </div>
-        </div>
-      `;
-      return;
-    }
-
-    let indice;
-    do {
-      indice = Math.floor(Math.random() * regalosCache.length);
-    } while (regalosCache.length > 1 && indice === ultimoIndice);
-
-    ultimoIndice = indice;
-
-    const item = regalosCache[indice];
-
-    const id = (item["ID"] || "").toString().trim();
-    const regalo = (item["Regalo"] || "").trim();
-    const cantidad = (item["Cantidad"] || "").toString().trim();
-    const nombre = (item["Nombre"] || "").trim();
-    let estado = (item["Estado"] || "").trim().toLowerCase();
-
-    const enlaceA = (item["Enlace A"] || "").trim();
-    const enlaceB = (item["Enlace B"] || "").trim();
-    const enlaceC = (item["Enlace C"] || "").trim();
-
-    if (nombre === "") {
-      estado = "disponible";
-    }
-
-    const reserved = estado === "reservado";
-    const image = imagenPorProducto(regalo);
-    const heart = heartPorProducto(regalo);
-
-    let links = "";
-    if (enlaceA) links += `<a class="gift-link" href="${enlaceA}" target="_blank">Ver opción 1</a>`;
-    if (enlaceB) links += `<a class="gift-link" href="${enlaceB}" target="_blank">Ver opción 2</a>`;
-    if (enlaceC) links += `<a class="gift-link" href="${enlaceC}" target="_blank">Ver opción 3</a>`;
-
-    let ribbon = "";
-    if (reserved && nombre !== "") {
-      ribbon = `<div class="gift-ribbon">Reservado por ${nombre}</div>`;
-    }
-
+  if (!regalosCache.length) {
     container.innerHTML = `
-      <div class="gift-card ${reserved ? "reserved" : ""} reveal">
-        ${ribbon}
-        <div class="gift-top">
-          <img src="${image}" alt="${regalo}" class="gift-photo">
-          <div class="gift-heart">${heart}</div>
-        </div>
-
+      <div class="gift-card">
         <div class="gift-body">
-          <div class="gift-title">${regalo}</div>
-          <div class="gift-meta">
-            ${cantidad ? `Cantidad sugerida: ${cantidad}` : "Regalo especial para nuestro hogar"}
-          </div>
-
-          <div class="gift-links">
-            ${links}
-          </div>
-
-          ${
-            reserved
-              ? `<div class="gift-reserved">Este regalo ya fue elegido con cariño por <strong>${nombre}</strong> 💕</div>`
-              : `
-                <input
-                  type="text"
-                  id="nombre_${id || indice}"
-                  class="gift-input"
-                  placeholder="Escribe tu nombre"
-                >
-                <button
-                  class="gift-btn"
-                  onclick="reservar(${JSON.stringify(regalo)}, 'nombre_${id || indice}', this)">
-                  Reservar regalo
-                </button>
-              `
-          }
+          <div class="gift-title">No hay regalos disponibles</div>
+          <div class="gift-meta">Vuelve a intentarlo más tarde.</div>
         </div>
       </div>
     `;
-
-    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+    return;
   }
+
+  let indice;
+  do {
+    indice = Math.floor(Math.random() * regalosCache.length);
+  } while (regalosCache.length > 1 && indice === ultimoIndice);
+
+  ultimoIndice = indice;
+
+  const item = regalosCache[indice];
+
+  const id = (item["ID"] || "").toString().trim();
+  const regalo = (item["Regalo"] || "").trim();
+  const cantidad = (item["Cantidad"] || "").toString().trim();
+  const nombre = (item["Nombre"] || "").trim();
+  let estado = (item["Estado"] || "").trim().toLowerCase();
+
+  const enlaceA = (item["Enlace A"] || "").trim();
+  const enlaceB = (item["Enlace B"] || "").trim();
+  const enlaceC = (item["Enlace C"] || "").trim();
+
+  if (nombre === "") {
+    estado = "disponible";
+  }
+
+  const reserved = estado === "reservado";
+  const image = imagenPorProducto(regalo);
+  const heart = heartPorProducto(regalo);
+
+  let links = "";
+  if (enlaceA) links += `<a class="gift-link" href="${enlaceA}" target="_blank">Ver opción 1</a>`;
+  if (enlaceB) links += `<a class="gift-link" href="${enlaceB}" target="_blank">Ver opción 2</a>`;
+  if (enlaceC) links += `<a class="gift-link" href="${enlaceC}" target="_blank">Ver opción 3</a>`;
+
+  let ribbon = "";
+  if (reserved && nombre !== "") {
+    ribbon = `<div class="gift-ribbon">Reservado por ${nombre}</div>`;
+  }
+
+  const inputId = `nombre_${id || indice}`;
+
+  container.innerHTML = `
+    <div class="gift-card ${reserved ? "reserved" : ""} reveal">
+      ${ribbon}
+      <div class="gift-top">
+        <img src="${image}" alt="${regalo}" class="gift-photo">
+        <div class="gift-heart">${heart}</div>
+      </div>
+
+      <div class="gift-body">
+        <div class="gift-title">${regalo}</div>
+        <div class="gift-meta">
+          ${cantidad ? `Cantidad sugerida: ${cantidad}` : "Regalo especial para nuestro hogar"}
+        </div>
+
+        <div class="gift-links">
+          ${links}
+        </div>
+
+        ${
+          reserved
+            ? `<div class="gift-reserved">Este regalo ya fue elegido con cariño por <strong>${nombre}</strong> 💕</div>`
+            : `
+              <input
+                type="text"
+                id="${inputId}"
+                class="gift-input"
+                placeholder="Escribe tu nombre"
+              >
+              <button
+                class="gift-btn reservar-btn"
+                data-regalo="${escapeHtml(regalo)}"
+                data-input-id="${inputId}">
+                Reservar regalo
+              </button>
+            `
+        }
+      </div>
+    </div>
+  `;
+
+  const btn = container.querySelector(".reservar-btn");
+  if (btn) {
+    btn.addEventListener("click", function () {
+      const regaloValue = this.getAttribute("data-regalo");
+      const inputIdValue = this.getAttribute("data-input-id");
+      reservar(regaloValue, inputIdValue, this);
+    });
+  }
+
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+}
 
   function mostrarOtroRegalo() {
     renderRegaloRandom();
