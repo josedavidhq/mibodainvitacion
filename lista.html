@@ -473,6 +473,163 @@ footer .ornament .diamond {
 
 
 
+
+
+
+.gift-showcase {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 26px;
+  margin-top: 10px;
+}
+
+.gift-card {
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: 22px;
+  overflow: hidden;
+  position: relative;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.04);
+  transition: transform .3s ease, box-shadow .3s ease;
+}
+
+.gift-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 16px 38px rgba(0,0,0,0.08);
+}
+
+.gift-top {
+  position: relative;
+  padding: 18px 18px 0;
+}
+
+.gift-photo {
+  width: 100%;
+  height: 220px;
+  object-fit: cover;
+  border-radius: 18px;
+  display: block;
+  background: #f3f3f3;
+}
+
+.gift-body {
+  padding: 18px 18px 22px;
+  text-align: center;
+}
+
+.gift-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 30px;
+  color: var(--ink);
+  line-height: 1.1;
+  margin-bottom: 8px;
+}
+
+.gift-meta {
+  font-size: 12px;
+  color: var(--ink-light);
+  line-height: 1.7;
+  margin-bottom: 14px;
+}
+
+.gift-links {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-bottom: 14px;
+}
+
+.gift-link {
+  border: 1px solid var(--gold);
+  color: var(--gold);
+  text-decoration: none;
+  padding: 8px 12px;
+  border-radius: 999px;
+  font-size: 11px;
+  letter-spacing: 1px;
+  transition: .25s ease;
+}
+
+.gift-link:hover {
+  background: var(--gold);
+  color: white;
+}
+
+.gift-input {
+  width: 100%;
+  margin-top: 10px;
+  margin-bottom: 12px;
+  padding: 12px 14px;
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  outline: none;
+  font-size: 13px;
+  text-align: center;
+  background: #fff;
+}
+
+.gift-btn {
+  width: 100%;
+  border: 1px solid var(--gold);
+  background: transparent;
+  color: var(--gold);
+  padding: 12px 16px;
+  border-radius: 999px;
+  font-family: 'Cinzel', serif;
+  font-size: 10px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: .25s ease;
+}
+
+.gift-btn:hover {
+  background: var(--gold);
+  color: white;
+}
+
+.gift-reserved {
+  color: #b03a2e;
+  font-size: 13px;
+  margin-top: 10px;
+  line-height: 1.7;
+}
+
+.gift-card.reserved {
+  background: #fff8f7;
+}
+
+.gift-ribbon {
+  position: absolute;
+  top: 18px;
+  right: -56px;
+  background: #c0392b;
+  color: white;
+  padding: 8px 64px;
+  transform: rotate(45deg);
+  font-size: 10px;
+  font-family: 'Cinzel', serif;
+  letter-spacing: 1px;
+  box-shadow: 0 2px 10px rgba(0,0,0,.15);
+  z-index: 3;
+}
+
+.gift-heart {
+  position: absolute;
+  left: 18px;
+  bottom: 12px;
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  background: rgba(255,255,255,.92);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  box-shadow: 0 4px 14px rgba(0,0,0,.08);
+}
+
 </style>
 </head>
 <body>
@@ -615,15 +772,16 @@ footer .ornament .diamond {
 
 
   <!-- LISTA DE REGALOS -->
-<div style="margin-top:60px;">
-  <span class="section-label reveal">Lista de Regalos</span>
-  <h2 class="section-title reveal">Sugerencias Especiales</h2>
-  <div class="gold-line reveal"></div>
+  <div style="margin-top:60px;">
+    <span class="section-label reveal">Lista de Regalos</span>
+    <h2 class="section-title reveal">Sugerencias Especiales</h2>
+    <div class="gold-line reveal"></div>
+    <p class="hero-sub" style="max-width:680px; margin-bottom:30px;">
+      Hemos preparado una selección especial de regalos para acompañar el inicio de nuestro hogar.
+    </p>
 
-  <div id="lista-regalos" class="transfer-grid"></div>
-</div>
-</div>
-
+    <div id="lista-regalos" class="gift-showcase"></div>
+  </div>
 
 
 
@@ -711,7 +869,7 @@ function reservar(regalo, inputId, btn) {
   const nombre = input.value.trim();
 
   if (!nombre) {
-    mostrarModal("Por favor, ingresa tu nombre para reservar el regalo.");
+    mostrarModal("Por favor, escribe tu nombre antes de reservar el regalo.");
     return;
   }
 
@@ -731,11 +889,10 @@ function reservar(regalo, inputId, btn) {
   })
   .then(() => {
     mostrarModal("🎁 ¡Regalo reservado con éxito!");
-
     setTimeout(() => {
       cerrarModal();
       cargarRegalos();
-    }, 2000);
+    }, 1800);
   })
   .catch(() => {
     btn.disabled = false;
@@ -754,78 +911,125 @@ async function cargarRegalos() {
   const container = document.getElementById("lista-regalos");
   container.innerHTML = "";
 
-  data.forEach((item, i) => {
-    const values = Object.values(item);
+  // Mezcla aleatoria
+  const items = [...data].sort(() => Math.random() - 0.5);
 
-    const regalo = (values[1] || "").trim();
-    let estado = (values[2] || "").trim().toLowerCase();
-    let nombre = (values[3] || "").trim();
+  items.forEach((item, i) => {
+    const id = (item["ID"] || "").toString().trim();
+    const regalo = (item["Regalo"] || "").trim();
+    const cantidad = (item["Cantidad"] || "").toString().trim();
+    const nombre = (item["Nombre"] || "").trim();
+    let estado = (item["Estado"] || "").trim().toLowerCase();
+
+    const enlaceA = (item["Enlace A"] || "").trim();
+    const enlaceB = (item["Enlace B"] || "").trim();
+    const enlaceC = (item["Enlace C"] || "").trim();
 
     if (!regalo) return;
 
+    // Si no hay nombre, lo tratamos como disponible
     if (nombre === "") {
       estado = "disponible";
     }
 
-    let icono = "🎁";
-    const r = regalo.toLowerCase();
+    const reserved = estado === "reservado";
 
-    if (r.includes("sábana")) icono = "🛏";
-    else if (r.includes("licuadora")) icono = "🍽";
-    else if (r.includes("cafetera")) icono = "☕";
-    else if (r.includes("toalla")) icono = "🧼";
-    else if (r.includes("vajilla")) icono = "🍽";
-    else if (r.includes("freidora")) icono = "🍟";
-    else if (r.includes("olla")) icono = "🍲";
-    else if (r.includes("cuchillo")) icono = "🔪";
-    else if (r.includes("lámpara")) icono = "💡";
-    else if (r.includes("planta")) icono = "🌿";
-    else if (r.includes("espejo")) icono = "🪞";
+    const image = imagenPorProducto(regalo);
+    const heart = heartPorProducto(regalo);
 
-    const color = estado === "reservado" ? "#f8d7da" : "#ffffff";
+    let links = "";
+    if (enlaceA) links += `<a class="gift-link" href="${enlaceA}" target="_blank">Ver opción 1</a>`;
+    if (enlaceB) links += `<a class="gift-link" href="${enlaceB}" target="_blank">Ver opción 2</a>`;
+    if (enlaceC) links += `<a class="gift-link" href="${enlaceC}" target="_blank">Ver opción 3</a>`;
 
     let ribbon = "";
-    if (estado === "reservado" && nombre !== "") {
-      ribbon = `<div class="ribbon">Reservado por ${nombre}</div>`;
+    if (reserved && nombre !== "") {
+      ribbon = `<div class="gift-ribbon">Reservado por ${nombre}</div>`;
     }
 
     container.innerHTML += `
-      <div class="transfer-card reveal" style="background:${color}; position:relative;">
+      <div class="gift-card ${reserved ? "reserved" : ""} reveal">
         ${ribbon}
+        <div class="gift-top">
+          <img src="${image}" alt="${regalo}" class="gift-photo">
+          <div class="gift-heart">${heart}</div>
+        </div>
 
-        <span class="bank-logo">${icono}</span>
-        <span class="bank-name" style="color:#2F2F2F;">${regalo}</span>
+        <div class="gift-body">
+          <div class="gift-title">${regalo}</div>
+          <div class="gift-meta">
+            ${cantidad ? `Cantidad sugerida: ${cantidad}` : "Regalo especial para nuestro hogar"}
+          </div>
 
-        <p>
-          ${estado === "disponible"
-            ? "Disponible para regalar 🎁"
-            : "Este regalo ya fue elegido ❤️"}
-        </p>
+          <div class="gift-links">
+            ${links}
+          </div>
 
-        ${
-          estado === "disponible"
-          ? `
-            <input 
-              type="text" 
-              placeholder="Tu nombre" 
-              id="nombre${i}" 
-              class="input-regalo"
-            >
-            <button 
-              class="copy-btn"
-              onclick="reservar(${JSON.stringify(regalo)}, 'nombre${i}', this)">
-              Reservar regalo
-            </button>
-          `
-          : `<p style="margin-top:10px; color:#c0392b;">Ya reservado</p>`
-        }
+          ${
+            reserved
+              ? `<div class="gift-reserved">Este regalo ya fue elegido con cariño por <strong>${nombre}</strong> 💕</div>`
+              : `
+                <input
+                  type="text"
+                  id="nombre_${id || i}"
+                  class="gift-input"
+                  placeholder="Escribe tu nombre"
+                >
+                <button
+                  class="gift-btn"
+                  onclick="reservar(${JSON.stringify(regalo)}, 'nombre_${id || i}', this)">
+                  Reservar regalo
+                </button>
+              `
+          }
+        </div>
       </div>
     `;
   });
 
   document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 }
-    
+
+
+
+
+
+
+function imagenPorProducto(regalo) {
+  const r = regalo.toLowerCase();
+
+  if (r.includes("cubiertos")) return "img/regalos/cubiertos.jpg";
+  if (r.includes("vasos")) return "img/regalos/vasos.jpg";
+  if (r.includes("tetera")) return "img/regalos/tetera.jpg";
+  if (r.includes("copas")) return "img/regalos/copas.jpg";
+  if (r.includes("bowl")) return "img/regalos/bowl.jpg";
+  if (r.includes("vajilla")) return "img/regalos/vajilla.jpg";
+  if (r.includes("cafetera")) return "img/regalos/cafetera.jpg";
+  if (r.includes("freidora")) return "img/regalos/freidora.jpg";
+  if (r.includes("batidora")) return "img/regalos/batidora.jpg";
+  if (r.includes("utensilios")) return "img/regalos/utensilios.jpg";
+  if (r.includes("escurridor")) return "img/regalos/escurridor.jpg";
+  if (r.includes("plancha")) return "img/regalos/plancha.jpg";
+  if (r.includes("cuchillos")) return "img/regalos/cuchillos.jpg";
+  if (r.includes("licuadora")) return "img/regalos/licuadora.jpg";
+  if (r.includes("olla")) return "img/regalos/olla-arrocera.jpg";
+
+  return "img/regalos/default.jpg";
+}
+
+function heartPorProducto(regalo) {
+  const r = regalo.toLowerCase();
+
+  if (r.includes("cafetera")) return "☕";
+  if (r.includes("copas")) return "🥂";
+  if (r.includes("vajilla")) return "🍽";
+  if (r.includes("licuadora")) return "🥤";
+  if (r.includes("olla")) return "🍚";
+  if (r.includes("cuchillos")) return "🔪";
+  if (r.includes("plancha")) return "✨";
+
+  return "🤍";
+}
 
 
 
