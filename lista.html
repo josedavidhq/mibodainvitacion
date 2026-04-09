@@ -706,7 +706,6 @@ Moneda: Soles`;
 
 
 
-
 function reservar(regalo, inputId, btn) {
   const input = document.getElementById(inputId);
   const nombre = input.value.trim();
@@ -829,6 +828,15 @@ async function cargarRegalos() {
     
 
 
+
+
+window.addEventListener("load", () => {
+  cargarRegalos();
+  setInterval(cargarRegalos, 10000);
+});
+
+
+
 function mostrarModal(msg) {
   document.getElementById("modal-text").innerText = msg;
   document.getElementById("modal").style.display = "flex";
@@ -837,14 +845,6 @@ function mostrarModal(msg) {
 function cerrarModal() {
   document.getElementById("modal").style.display = "none";
 }
-
-
-
-window.addEventListener("load", () => {
-  cargarRegalos();
-  setInterval(cargarRegalos, 10000);
-});
-
 </script>
 
 
