@@ -855,124 +855,141 @@
 
 <div id="toast">✓ Copiado al portapapeles</div>
 
-<div id="modal">
-  <div class="modal-box">
-    <h3>Reserva realizada</h3>
-    <p id="modal-text">Tu regalo fue reservado con éxito.</p>
-    <button class="modal-btn" onclick="cerrarModal()">Aceptar</button>
+<!-- LISTA DE REGALOS -->
+<div style="margin-top:60px;">
+  <span class="section-label reveal">Lista de Regalos</span>
+  <h2 class="section-title reveal">Sugerencias Especiales</h2>
+  <div class="gold-line reveal"></div>
+  <p class="hero-sub" style="margin-bottom:30px;">
+    Te mostraremos un regalo especial al azar. Si no es el que buscas, puedes ver otro con un clic.
+  </p>
+
+  <div id="lista-regalos" class="gift-random-wrap"></div>
+
+  <div style="text-align:center; margin-top:18px;">
+    <button class="gift-btn" style="max-width:260px;" onclick="mostrarOtroRegalo()">
+      Ver otro regalo
+    </button>
   </div>
 </div>
 
 <script>
-  const observer = new IntersectionObserver(entries => {
-    entries.forEach((e) => {
-      if (e.isIntersecting) {
-        e.target.classList.add('visible');
-      }
-    });
-  }, { threshold: 0.1 });
+const observer = new IntersectionObserver(entries => {
+  entries.forEach((e) => {
+    if (e.isIntersecting) {
+      e.target.classList.add('visible');
+    }
+  });
+}, { threshold: 0.1 });
 
-  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 
-  let regalosCache = [];
-  let ultimoIndice = -1;
+let regalosCache = [];
+let ultimoIndice = -1;
 
-  function showToast(msg) {
-    const t = document.getElementById('toast');
-    t.textContent = '✓ ' + msg;
-    t.classList.add('show');
-    setTimeout(() => t.classList.remove('show'), 2400);
-  }
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = '✓ ' + msg;
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 2400);
+}
 
-  function copyText(text, btn) {
-    navigator.clipboard.writeText(text).then(() => {
-      const orig = btn.innerHTML;
-      btn.classList.add('copied');
-      btn.innerHTML = '<span>✓</span> ¡Copiado!';
-      showToast('Número copiado');
-      setTimeout(() => {
-        btn.classList.remove('copied');
-        btn.innerHTML = orig;
-      }, 2000);
-    });
-  }
+function copyText(text, btn) {
+  navigator.clipboard.writeText(text).then(() => {
+    const orig = btn.innerHTML;
+    btn.classList.add('copied');
+    btn.innerHTML = '<span>✓</span> ¡Copiado!';
+    showToast('Número copiado');
+    setTimeout(() => {
+      btn.classList.remove('copied');
+      btn.innerHTML = orig;
+    }, 2000);
+  });
+}
 
-  function copyData(bank) {
-    let text = '';
-    const btn = event.currentTarget;
+function copyData(bank) {
+  let text = '';
+  const btn = event.currentTarget;
 
-    if (bank === 'bcp') {
-      text = `BCP · Karina Verde Aguirre
+  if (bank === 'bcp') {
+    text = `BCP · Karina Verde Aguirre
 Cuenta: 19196084955008
 CCI: 00219119608495500856
 Moneda: Soles`;
-    } else if (bank === 'scotia') {
-      text = `Scotiabank · Karina Verde Aguirre
+  } else if (bank === 'scotia') {
+    text = `Scotiabank · Karina Verde Aguirre
 Cuenta: 8500401420
 CCI: 00917020850040142024
 Moneda: Soles`;
-    }
-
-    navigator.clipboard.writeText(text).then(() => {
-      const orig = btn.innerHTML;
-      btn.classList.add('copied');
-      btn.innerHTML = '<span>✓</span> ¡Datos copiados!';
-      showToast('Datos bancarios copiados');
-
-      setTimeout(() => {
-        btn.classList.remove('copied');
-        btn.innerHTML = orig;
-      }, 2000);
-    });
   }
 
-  function mostrarModal(msg) {
-    document.getElementById("modal-text").innerText = msg;
-    document.getElementById("modal").style.display = "flex";
-  }
+  navigator.clipboard.writeText(text).then(() => {
+    const orig = btn.innerHTML;
+    btn.classList.add('copied');
+    btn.innerHTML = '<span>✓</span> ¡Datos copiados!';
+    showToast('Datos bancarios copiados');
 
-  function cerrarModal() {
-    document.getElementById("modal").style.display = "none";
-  }
+    setTimeout(() => {
+      btn.classList.remove('copied');
+      btn.innerHTML = orig;
+    }, 2000);
+  });
+}
 
-  function imagenPorProducto(regalo) {
-    const r = regalo.toLowerCase();
+function mostrarModal(msg) {
+  document.getElementById("modal-text").innerText = msg;
+  document.getElementById("modal").style.display = "flex";
+}
 
-    if (r.includes("cubiertos")) return "img/regalos/cubiertos.png";
-    if (r.includes("vasos")) return "img/regalos/vasos.jpg";
-    if (r.includes("tetera")) return "img/regalos/tetera.jpg";
-    if (r.includes("copas")) return "img/regalos/copas.jpg";
-    if (r.includes("bowl")) return "img/regalos/bowl.jpg";
-    if (r.includes("vajilla")) return "img/regalos/vajilla.jpg";
-    if (r.includes("cafetera")) return "img/regalos/cafetera.jpg";
-    if (r.includes("freidora")) return "img/regalos/freidora.jpg";
-    if (r.includes("batidora")) return "img/regalos/batidora.jpg";
-    if (r.includes("utensilios")) return "img/regalos/utensilios.jpg";
-    if (r.includes("escurridor")) return "img/regalos/escurridor.jpg";
-    if (r.includes("plancha")) return "img/regalos/plancha.jpg";
-    if (r.includes("cuchillos")) return "img/regalos/cuchillos.jpg";
-    if (r.includes("licuadora")) return "img/regalos/licuadora.jpg";
-    if (r.includes("olla")) return "img/regalos/olla-arrocera.jpg";
+function cerrarModal() {
+  document.getElementById("modal").style.display = "none";
+}
 
-    return "img/regalos/default.jpg";
-  }
+function escapeHtml(text) {
+  return String(text)
+    .replace(/&/g, "&amp;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#39;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;");
+}
 
-  function heartPorProducto(regalo) {
-    const r = regalo.toLowerCase();
+function imagenPorProducto(regalo) {
+  const r = regalo.toLowerCase();
 
-    if (r.includes("cafetera")) return "☕";
-    if (r.includes("copas")) return "🥂";
-    if (r.includes("vajilla")) return "🍽";
-    if (r.includes("licuadora")) return "🥤";
-    if (r.includes("olla")) return "🍚";
-    if (r.includes("cuchillos")) return "🔪";
-    if (r.includes("plancha")) return "✨";
+  if (r.includes("licuadora")) return "img/regalos/licuadora.jpg";
+  if (r.includes("olla arrocera")) return "img/regalos/olla-arrocera.jpg";
+  if (r.includes("juego de ollas")) return "img/regalos/juego-ollas.jpg";
+  if (r.includes("sartenes")) return "img/regalos/sartenes.jpg";
+  if (r.includes("sábanas")) return "img/regalos/sabanas.jpg";
+  if (r.includes("edredón")) return "img/regalos/edredon.jpg";
+  if (r.includes("toallas")) return "img/regalos/toallas.jpg";
+  if (r.includes("lámpara")) return "img/regalos/lampara.jpg";
+  if (r.includes("plantas")) return "img/regalos/plantas.jpg";
+  if (r.includes("espejo")) return "img/regalos/espejo.jpg";
+  if (r.includes("mesa de centro")) return "img/regalos/mesa-centro.jpg";
+  if (r.includes("puff")) return "img/regalos/puff.jpg";
+  if (r.includes("repisa")) return "img/regalos/repisa.jpg";
+  if (r.includes("organizador")) return "img/regalos/organizador.jpg";
+  if (r.includes("cesta")) return "img/regalos/cesta.jpg";
 
-    return "🤍";
-  }
+  return "img/regalos/default.jpg";
+}
 
+function heartPorProducto(regalo) {
+  const r = regalo.toLowerCase();
 
-  
+  if (r.includes("licuadora")) return "🥤";
+  if (r.includes("olla")) return "🍚";
+  if (r.includes("sábanas")) return "🛏";
+  if (r.includes("edredón")) return "🤍";
+  if (r.includes("toallas")) return "🧺";
+  if (r.includes("lámpara")) return "✨";
+  if (r.includes("plantas")) return "🌿";
+  if (r.includes("espejo")) return "🪞";
+
+  return "💕";
+}
 
 function reservar(regalo, inputId, btn) {
   const input = document.getElementById(inputId);
@@ -1011,7 +1028,6 @@ function reservar(regalo, inputId, btn) {
   });
 }
 
-
 async function cargarRegalos() {
   const res = await fetch("https://opensheet.elk.sh/1NZ0znTtxD9yRMIf6bqeyPHWY6RGcnhfDL1SZ4Y9-AwE/Hoja%201");
   const data = await res.json();
@@ -1020,25 +1036,7 @@ async function cargarRegalos() {
   renderRegaloRandom();
 }
 
-
-
-
-
-
-
-
-
-
-  function escapeHtml(text) {
-  return String(text)
-    .replace(/&/g, "&amp;")
-    .replace(/"/g, "&quot;")
-    .replace(/'/g, "&#39;")
-    .replace(/</g, "&lt;")
-    .replace(/>/g, "&gt;");
-}
-
-  function renderRegaloRandom() {
+function renderRegaloRandom() {
   const container = document.getElementById("lista-regalos");
   container.innerHTML = "";
 
@@ -1072,6 +1070,8 @@ async function cargarRegalos() {
   const enlaceA = (item["Enlace A"] || "").trim();
   const enlaceB = (item["Enlace B"] || "").trim();
   const enlaceC = (item["Enlace C"] || "").trim();
+
+  if (!regalo) return;
 
   if (nombre === "") {
     estado = "disponible";
@@ -1145,14 +1145,14 @@ async function cargarRegalos() {
   document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 }
 
-  function mostrarOtroRegalo() {
-    renderRegaloRandom();
-  }
+function mostrarOtroRegalo() {
+  renderRegaloRandom();
+}
 
-  window.addEventListener("load", () => {
-    cargarRegalos();
-    setInterval(cargarRegalos, 10000);
-  });
+window.addEventListener("load", () => {
+  cargarRegalos();
+  setInterval(cargarRegalos, 10000);
+});
 </script>
 </body>
 </html>
