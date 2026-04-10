@@ -873,6 +873,7 @@ let ultimoIndice = -1;
 
 function showToast(msg) {
   const t = document.getElementById('toast');
+  if (!t) return;
   t.textContent = '✓ ' + msg;
   t.classList.add('show');
   setTimeout(() => t.classList.remove('show'), 2400);
@@ -921,12 +922,21 @@ Moneda: Soles`;
 }
 
 function mostrarModal(msg) {
-  document.getElementById("modal-text").innerText = msg;
-  document.getElementById("modal").style.display = "flex";
+  const modal = document.getElementById("modal");
+  const modalText = document.getElementById("modal-text");
+
+  if (!modal || !modalText) {
+    alert(msg);
+    return;
+  }
+
+  modalText.innerText = msg;
+  modal.style.display = "flex";
 }
 
 function cerrarModal() {
-  document.getElementById("modal").style.display = "none";
+  const modal = document.getElementById("modal");
+  if (modal) modal.style.display = "none";
 }
 
 function escapeHtml(text) {
@@ -977,9 +987,14 @@ function heartPorProducto(regalo) {
 
 function reservar(regalo, inputId, btn) {
   const input = document.getElementById(inputId);
-  const nombre = input.value.trim();
+  if (!input) {
+    mostrarModal("No se encontró el campo para escribir tu nombre.");
+    return;
+  }
 
-  if (!nombre) {
+  const nombreVisible = input.value.trim();
+
+  if (!nombreVisible) {
     mostrarModal("Por favor, escribe tu nombre antes de reservar el regalo.");
     return;
   }
@@ -994,8 +1009,7 @@ function reservar(regalo, inputId, btn) {
       "Content-Type": "application/json"
     },
     body: JSON.stringify({
-      regalo: regalo,
-      nombre: nombre
+      regalo: regalo
     })
   })
   .then(() => {
@@ -1022,6 +1036,8 @@ async function cargarRegalos() {
 
 function renderRegaloRandom() {
   const container = document.getElementById("lista-regalos");
+  if (!container) return;
+
   container.innerHTML = "";
 
   if (!regalosCache.length) {
@@ -1047,8 +1063,6 @@ function renderRegaloRandom() {
 
   const id = (item["ID"] || "").toString().trim();
   const regalo = (item["Regalo"] || "").trim();
-  const cantidad = (item["Cantidad"] || "").toString().trim();
-  const nombre = (item["Nombre"] || "").trim();
   let estado = (item["Estado"] || "").trim().toLowerCase();
 
   const enlaceA = (item["Enlace A"] || "").trim();
@@ -1056,10 +1070,7 @@ function renderRegaloRandom() {
   const enlaceC = (item["Enlace C"] || "").trim();
 
   if (!regalo) return;
-
-  if (nombre === "") {
-    estado = "disponible";
-  }
+  if (!estado) estado = "disponible";
 
   const reserved = estado === "reservado";
   const image = imagenPorProducto(regalo);
@@ -1071,8 +1082,8 @@ function renderRegaloRandom() {
   if (enlaceC) links += `<a class="gift-link" href="${enlaceC}" target="_blank">Ver opción 3</a>`;
 
   let ribbon = "";
-  if (reserved && nombre !== "") {
-    ribbon = `<div class="gift-ribbon">Reservado por ${nombre}</div>`;
+  if (reserved) {
+    ribbon = `<div class="gift-ribbon">Reservado</div>`;
   }
 
   const inputId = `nombre_${id || indice}`;
@@ -1088,7 +1099,7 @@ function renderRegaloRandom() {
       <div class="gift-body">
         <div class="gift-title">${regalo}</div>
         <div class="gift-meta">
-          ${cantidad ? `Cantidad sugerida: ${cantidad}` : "Regalo especial para nuestro hogar"}
+          ${reserved ? "Este regalo ya fue elegido ❤️" : "Regalo especial para nuestro hogar"}
         </div>
 
         <div class="gift-links">
@@ -1097,7 +1108,7 @@ function renderRegaloRandom() {
 
         ${
           reserved
-            ? `<div class="gift-reserved">Este regalo ya fue elegido con cariño por <strong>${nombre}</strong> 💕</div>`
+            ? `<div class="gift-reserved">Este regalo ya fue reservado 💕</div>`
             : `
               <input
                 type="text"
@@ -1138,5 +1149,16 @@ window.addEventListener("load", () => {
   setInterval(cargarRegalos, 10000);
 });
 </script>
+
+
+
+<div id="modal">
+  <div class="modal-box">
+    <h3>Reserva realizada</h3>
+    <p id="modal-text">Tu regalo fue reservado con éxito.</p>
+    <button class="modal-btn" onclick="cerrarModal()">Aceptar</button>
+  </div>
+</div>
+
 </body>
 </html>
