@@ -951,6 +951,24 @@ function escapeHtml(text) {
 function imagenPorProducto(regalo) {
   const r = regalo.toLowerCase();
 
+  if (r.includes("cubiertos de acero inoxidable")) return "img/regalos/cubiertos-acero.jpg";
+  if (r.includes("juego de vasos y jarra")) return "img/regalos/vasos-jarra.jpg";
+  if (r.includes("tetera")) return "img/regalos/tetera.jpg";
+  if (r.includes("juego de copas")) return "img/regalos/juego-copas.jpg";
+  if (r.includes("bowl")) return "img/regalos/bowl.jpg";
+  if (r.includes("vajilla completa")) return "img/regalos/vajilla-completa.jpg";
+  if (r.includes("cafetera")) return "img/regalos/cafetera.jpg";
+  if (r.includes("freidora de aire")) return "img/regalos/freidora-aire.jpg";
+  if (r.includes("batidora")) return "img/regalos/batidora.jpg";
+  if (r.includes("set de utensilios de cocina")) return "img/regalos/utensilios-cocina.jpg";
+  if (r.includes("escurridor de platos")) return "img/regalos/escurridor-platos.jpg";
+  if (r.includes("plancha")) return "img/regalos/plancha.jpg";
+  if (r.includes("set de cuchillos")) return "img/regalos/set-cuchillos.jpg";
+  if (r.includes("lavadora")) return "img/regalos/lavadora.jpg";
+  if (r.includes("microondas")) return "img/regalos/microondas.jpg";
+  if (r.includes("frigider") || r.includes("refrigerador") || r.includes("frigobar")) return "img/regalos/refrigerador.jpg";
+
+
   if (r.includes("licuadora")) return "img/regalos/licuadora.jpg";
   if (r.includes("olla arrocera")) return "img/regalos/olla-arrocera.jpg";
   if (r.includes("juego de ollas")) return "img/regalos/juego-ollas.jpg";
@@ -985,6 +1003,7 @@ function heartPorProducto(regalo) {
   if (r.includes("lámpara")) return "✨";
   if (r.includes("plantas")) return "🌿";
   if (r.includes("espejo")) return "🪞";
+  if (r.includes("tetera")) return "🫖";
 
   return "💕";
 }
