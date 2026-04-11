@@ -1048,7 +1048,6 @@ function renderRegaloRandom() {
 
   const item = regalosCache[indice];
 
-  const id = (item["ID"] || "").toString().trim();
   const regalo = (item["Regalo"] || "").trim();
   let estado = (item["Estado"] || "").trim().toLowerCase();
 
@@ -1073,8 +1072,6 @@ function renderRegaloRandom() {
     ribbon = `<div class="gift-ribbon">Reservado</div>`;
   }
 
-  const inputId = `nombre_${id || indice}`;
-
   container.innerHTML = `
     <div class="gift-card ${reserved ? "reserved" : ""} reveal">
       ${ribbon}
@@ -1097,16 +1094,9 @@ function renderRegaloRandom() {
           reserved
             ? `<div class="gift-reserved">Este regalo ya fue reservado 💕</div>`
             : `
-              <input
-                type="text"
-                id="${inputId}"
-                class="gift-input"
-                placeholder="Escribe tu nombre"
-              >
               <button
                 class="gift-btn reservar-btn"
-                data-regalo="${escapeHtml(regalo)}"
-                data-input-id="${inputId}">
+                data-regalo="${escapeHtml(regalo)}">
                 Reservar regalo
               </button>
             `
@@ -1119,13 +1109,13 @@ function renderRegaloRandom() {
   if (btn) {
     btn.addEventListener("click", function () {
       const regaloValue = this.getAttribute("data-regalo");
-      const inputIdValue = this.getAttribute("data-input-id");
-      reservar(regaloValue, inputIdValue, this);
+      reservar(regaloValue, this);
     });
   }
 
   document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 }
+
 
 function mostrarOtroRegalo() {
   renderRegaloRandom();
