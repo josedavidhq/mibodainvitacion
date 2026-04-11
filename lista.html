@@ -17,6 +17,12 @@
     --border: rgba(107,125,92,0.25);
     --reserved-bg: #fff8f7;
     --reserved-red: #c0392b;
+
+    --pink-deep:   #993556;
+    --pink-mid:    #D4537E;
+    --pink-light:  #ED93B1;
+    --pink-pale:   #F4C0D1;
+    --pink-softest:#FBEAF0;
   }
 
   * { margin:0; padding:0; box-sizing:border-box; }
@@ -397,234 +403,281 @@
     line-height: 1.8;
   }
 
-  /* RANDOM GIFT */
-  .gift-random-wrap {
+  /* GIFT BUTTON */
+  .gift-launch-area {
     display: flex;
-    justify-content: center;
-    width: 100%;
-    margin-top: 10px;
-  }
-
-  .gift-card {
-    width: 100%;
-    max-width: 430px;
-    background: var(--white);
-    border: 1px solid var(--border);
-    border-radius: 22px;
-    overflow: hidden;
-    position: relative;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.04);
-    transition: transform .3s ease, box-shadow .3s ease;
-  }
-
-  .gift-card:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 16px 38px rgba(0,0,0,0.08);
-  }
-
-  .gift-card.reserved {
-    background: var(--reserved-bg);
-  }
-
-  .gift-top {
-    position: relative;
-    padding: 18px 18px 0;
-  }
-
-  .gift-photo {
-    width: 100%;
-    height: 240px;
-    object-fit: cover;
-    border-radius: 18px;
-    display: block;
-    background: #f3f3f3;
-  }
-
-  .gift-heart {
-    position: absolute;
-    left: 18px;
-    bottom: 12px;
-    width: 42px;
-    height: 42px;
-    border-radius: 50%;
-    background: rgba(255,255,255,.92);
-    display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
-    font-size: 18px;
-    box-shadow: 0 4px 14px rgba(0,0,0,.08);
   }
 
-  .gift-ribbon {
-    position: absolute;
-    top: 18px;
-    right: -56px;
-    background: var(--reserved-red);
-    color: white;
-    padding: 8px 64px;
-    transform: rotate(45deg);
-    font-size: 10px;
-    font-family: 'Cinzel', serif;
-    letter-spacing: 1px;
-    box-shadow: 0 2px 10px rgba(0,0,0,.15);
-    z-index: 3;
-  }
-
-  .gift-body {
-    padding: 18px 18px 22px;
-    text-align: center;
-  }
-
-  .gift-title {
+  .page-title-gift {
     font-family: 'Cormorant Garamond', serif;
-    font-size: 32px;
-    color: var(--ink);
-    line-height: 1.1;
-    margin-bottom: 8px;
-  }
-
-  .gift-meta {
-    font-size: 12px;
-    color: var(--ink-light);
-    line-height: 1.7;
-    margin-bottom: 14px;
-  }
-
-  .gift-links {
-    display: flex;
-    justify-content: center;
-    gap: 8px;
-    flex-wrap: wrap;
-    margin-bottom: 14px;
-  }
-
-  .gift-link {
-    border: 1px solid var(--gold);
-    color: var(--gold);
-    text-decoration: none;
-    padding: 8px 12px;
-    border-radius: 999px;
-    font-size: 11px;
-    letter-spacing: 1px;
-    transition: .25s ease;
-  }
-
-  .gift-link:hover {
-    background: var(--gold);
-    color: white;
-  }
-
-  .gift-input {
-    width: 100%;
-    margin-top: 10px;
-    margin-bottom: 12px;
-    padding: 12px 14px;
-    border-radius: 999px;
-    border: 1px solid var(--border);
-    outline: none;
-    font-size: 13px;
-    text-align: center;
-    background: #fff;
-  }
-
-  .gift-btn {
-    width: 100%;
-    border: 1px solid var(--gold);
-    background: transparent;
-    color: var(--gold);
-    padding: 12px 16px;
-    border-radius: 999px;
-    font-family: 'Cinzel', serif;
-    font-size: 10px;
-    letter-spacing: 2px;
+    font-size: 15px;
+    font-weight: 400;
+    letter-spacing: 0.22em;
+    color: var(--pink-deep);
     text-transform: uppercase;
-    cursor: pointer;
-    transition: .25s ease;
-  }
-
-  .gift-btn:hover {
-    background: var(--gold);
-    color: white;
-  }
-
-  .gift-reserved {
-    color: #b03a2e;
-    font-size: 13px;
-    margin-top: 10px;
-    line-height: 1.7;
-  }
-
-  footer {
-    background: var(--ink);
-    padding: 44px 24px;
+    margin-bottom: 2rem;
+    opacity: 0.75;
     text-align: center;
-    margin-top: 56px;
-    width: 100%;
-    max-width: none;
   }
 
-  footer .f-names {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 26px;
-    font-style: italic;
-    color: var(--gold-light);
-    margin-bottom: 8px;
+  .gift-wrap {
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+    animation: bounce 1.8s cubic-bezier(0.36, 0.07, 0.19, 0.97) infinite;
+    transform-origin: bottom center;
+    transition: filter 0.2s;
   }
 
-  footer .f-date {
-    font-family: 'Cinzel', serif;
-    font-size: 9px;
-    letter-spacing: 4px;
-    color: rgba(255,255,255,0.35);
+  .gift-wrap:hover { filter: brightness(1.06); }
+  .gift-wrap:active { animation: none; transform: scale(0.95); }
+
+  @keyframes bounce {
+    0%   { transform: translateY(0) rotate(0deg) scaleX(1) scaleY(1); }
+    10%  { transform: translateY(-2px) rotate(-0.8deg) scaleX(1.01) scaleY(0.99); }
+    22%  { transform: translateY(-14px) rotate(1deg) scaleX(0.97) scaleY(1.03); }
+    34%  { transform: translateY(-22px) rotate(-0.5deg) scaleX(0.96) scaleY(1.04); }
+    46%  { transform: translateY(-14px) rotate(0.8deg) scaleX(0.97) scaleY(1.03); }
+    58%  { transform: translateY(-4px) rotate(-0.4deg) scaleX(1.01) scaleY(0.99); }
+    68%  { transform: translateY(0) rotate(0deg) scaleX(1.03) scaleY(0.97); }
+    76%  { transform: translateY(-3px) rotate(0.3deg) scaleX(1.01) scaleY(0.99); }
+    84%  { transform: translateY(0) rotate(0deg) scaleX(1) scaleY(1); }
+    100% { transform: translateY(0) rotate(0deg) scaleX(1) scaleY(1); }
   }
 
-  footer .ornament .line {
-    background: linear-gradient(90deg, transparent, var(--gold-light));
-  }
-
-  footer .ornament .line.r {
-    background: linear-gradient(90deg, var(--gold-light), transparent);
-  }
-
-  footer .ornament .diamond {
-    background: var(--gold-light);
-  }
-
-  #toast {
-    position: fixed;
-    bottom: 32px;
-    left: 50%;
-    transform: translateX(-50%) translateY(20px);
-    background: var(--ink);
-    color: var(--gold-light);
-    font-family: 'Cinzel', serif;
-    font-size: 10px;
-    letter-spacing: 2px;
-    padding: 12px 28px;
-    border: 1px solid var(--gold);
-    opacity: 0;
-    transition: opacity 0.3s, transform 0.3s;
+  .gift-shadow {
+    width: 160px;
+    height: 14px;
+    background: radial-gradient(ellipse, rgba(153,53,86,0.22) 0%, transparent 70%);
+    border-radius: 50%;
+    animation: shadow-pulse 1.8s cubic-bezier(0.36, 0.07, 0.19, 0.97) infinite;
+    margin-top: -4px;
     pointer-events: none;
-    white-space: nowrap;
-    z-index: 999;
   }
 
-  #toast.show {
-    opacity: 1;
-    transform: translateX(-50%) translateY(0);
+  @keyframes shadow-pulse {
+    0%   { transform: scaleX(1); opacity: 0.8; }
+    34%  { transform: scaleX(0.55); opacity: 0.3; }
+    68%  { transform: scaleX(1.05); opacity: 0.9; }
+    84%  { transform: scaleX(1); opacity: 0.8; }
+    100% { transform: scaleX(1); opacity: 0.8; }
   }
 
-  .reveal {
-    opacity: 0;
-    transform: translateY(24px);
-    transition: opacity 0.8s ease, transform 0.8s ease;
+  .hint-text {
+    margin-top: 22px;
+    font-size: 12px;
+    font-weight: 300;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--pink-mid);
+    opacity: 0.7;
+    animation: pulse-hint 2.4s ease-in-out infinite;
+    text-align: center;
   }
 
-  .reveal.visible {
-    opacity: 1;
-    transform: translateY(0);
+  @keyframes pulse-hint {
+    0%, 100% { opacity: 0.5; }
+    50% { opacity: 1; }
   }
 
+  /* MODAL REGALOS */
+  .overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(80, 10, 30, 0.38);
+    z-index: 200;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem;
+    backdrop-filter: blur(3px);
+  }
+
+  .overlay.active { display: flex; }
+
+  .gift-modal {
+    background: #fff;
+    border-radius: 20px;
+    padding: 2rem 1.75rem 1.75rem;
+    width: 100%;
+    max-width: 420px;
+    animation: modalIn 0.38s cubic-bezier(0.34, 1.56, 0.64, 1);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .gift-modal::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, var(--pink-pale), var(--pink-mid), var(--pink-pale));
+  }
+
+  .gift-modal-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 2px;
+  }
+
+  .gift-modal-icon {
+    width: 32px;
+    height: 32px;
+    flex-shrink: 0;
+  }
+
+  .gift-modal-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 22px;
+    font-weight: 500;
+    color: var(--pink-deep);
+    line-height: 1.1;
+  }
+
+  .gift-modal-sub {
+    font-size: 12.5px;
+    font-weight: 300;
+    color: #b07090;
+    letter-spacing: 0.04em;
+    margin-bottom: 1.1rem;
+    margin-left: 42px;
+  }
+
+  .gift-list {
+    list-style: none;
+    border: 1px solid var(--pink-pale);
+    border-radius: 12px;
+    max-height: 260px;
+    overflow-y: auto;
+    margin-bottom: 1.1rem;
+  }
+
+  .gift-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 14px;
+    font-size: 13.5px;
+    font-weight: 400;
+    color: #4a1b2c;
+    cursor: pointer;
+    border-bottom: 1px solid #fce8f0;
+    transition: background 0.12s;
+  }
+
+  .gift-item:last-child { border-bottom: none; }
+  .gift-item:hover { background: var(--pink-softest); }
+  .gift-item.sel { background: #fce8f0; color: var(--pink-deep); font-weight: 500; }
+  .gift-item.disabled {
+    opacity: 0.45;
+    cursor: not-allowed;
+    background: #faf6f7;
+  }
+
+  .dot {
+    width: 9px;
+    height: 9px;
+    border-radius: 50%;
+    border: 1.5px solid var(--pink-mid);
+    flex-shrink: 0;
+    transition: background 0.12s;
+  }
+
+  .gift-item.sel .dot { background: var(--pink-mid); }
+
+  .gift-ico { font-size: 16px; line-height: 1; }
+
+  .gift-status {
+    margin-left: auto;
+    font-size: 11px;
+    color: var(--reserved-red);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+
+  .gift-modal-actions {
+    display: flex;
+    gap: 10px;
+    justify-content: flex-end;
+  }
+
+  .btn-cancel {
+    padding: 9px 18px;
+    border-radius: 10px;
+    border: 1px solid var(--pink-pale);
+    background: transparent;
+    color: var(--pink-mid);
+    font-family: 'Lato', sans-serif;
+    font-size: 13px;
+    cursor: pointer;
+  }
+
+  .btn-cancel:hover { background: var(--pink-softest); }
+
+  .btn-ok {
+    padding: 9px 20px;
+    border-radius: 10px;
+    border: none;
+    background: var(--pink-mid);
+    color: #fff;
+    font-family: 'Lato', sans-serif;
+    font-size: 13px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: opacity 0.15s, transform 0.1s;
+  }
+
+  .btn-ok:disabled {
+    opacity: 0.32;
+    cursor: default;
+  }
+
+  .btn-ok:not(:disabled):hover { opacity: 0.88; }
+  .btn-ok:not(:disabled):active { transform: scale(0.96); }
+
+  .gift-success-view {
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    padding: 0.5rem 0 0.25rem;
+    text-align: center;
+    animation: fadeIn 0.4s ease;
+  }
+
+  @keyframes fadeIn {
+    from { opacity:0; transform:translateY(8px); }
+    to { opacity:1; transform:translateY(0); }
+  }
+
+  .gift-success-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 20px;
+    font-weight: 500;
+    color: var(--pink-deep);
+  }
+
+  .gift-success-name {
+    font-size: 13px;
+    color: var(--pink-mid);
+    font-weight: 500;
+    letter-spacing: 0.03em;
+  }
+
+  .gift-success-msg {
+    font-size: 12.5px;
+    font-weight: 300;
+    color: #b07090;
+    max-width: 240px;
+  }
+
+  /* MODAL GENERAL */
   #modal {
     position: fixed;
     inset: 0;
@@ -691,12 +744,8 @@
   }
 
   @media (max-width: 640px) {
-    .gift-card {
+    .gift-modal {
       max-width: 100%;
-    }
-
-    .gift-photo {
-      height: 210px;
     }
   }
 </style>
@@ -824,21 +873,53 @@
     </p>
   </div>
 
-  <div style="margin-top:60px;">
+  <div style="margin-top:60px;" class="gift-launch-area">
     <span class="section-label reveal">Lista de Regalos</span>
     <h2 class="section-title reveal">Sugerencias Especiales</h2>
     <div class="gold-line reveal"></div>
     <p class="hero-sub" style="margin-bottom:30px;">
-      Te mostraremos un regalo especial al azar. Si no es el que buscas, puedes ver otro con un clic.
+      Haz clic en el regalo para abrir la lista y elegir uno de nuestros detalles disponibles.
     </p>
 
-    <div id="lista-regalos" class="gift-random-wrap"></div>
+    <p class="page-title-gift">Lista de regalos</p>
 
-    <div style="text-align:center; margin-top:18px;">
-      <button class="gift-btn" style="max-width:260px;" onclick="mostrarOtroRegalo()">
-        Ver otro regalo
-      </button>
+    <div class="gift-wrap reveal" id="giftBtn" role="button" tabindex="0" aria-label="Haz clic para elegir un regalo">
+      <svg width="200" height="220" viewBox="0 0 200 220" xmlns="http://www.w3.org/2000/svg">
+        <rect x="10" y="100" width="180" height="112" rx="7" fill="#ED93B1" stroke="#D4537E" stroke-width="1.5"/>
+        <rect x="86" y="100" width="28" height="112" fill="#F4C0D1"/>
+        <rect x="4" y="100" width="192" height="32" rx="7" fill="#D4537E"/>
+        <rect x="4" y="118" width="192" height="14" fill="#D4537E"/>
+        <rect x="86" y="100" width="28" height="32" fill="#ED93B1"/>
+
+        <path d="M100 98 C80 80, 48 68, 50 48 C52 32, 72 33, 82 48 C90 60, 96 78, 100 98Z"
+              fill="#F4C0D1" stroke="#D4537E" stroke-width="1.2"/>
+        <path d="M100 98 C120 80, 152 68, 150 48 C148 32, 128 33, 118 48 C110 60, 104 78, 100 98Z"
+              fill="#F4C0D1" stroke="#D4537E" stroke-width="1.2"/>
+        <ellipse cx="100" cy="98" rx="11" ry="9" fill="#D4537E"/>
+
+        <path d="M158 62 C158 58,161 56,164 56 C167 56,170 58,170 62 C170 67,164 72,164 72 C164 72,158 67,158 62Z"
+              fill="#D4537E" opacity="0.85">
+          <animateTransform attributeName="transform" type="translate" values="0,0;0,-4;0,0" dur="2.1s" repeatCount="indefinite"/>
+        </path>
+
+        <path d="M22 58 C22 55,24.5 53,27 53 C29.5 53,32 55,32 58 C32 62,27 66,27 66 C27 66,22 62,22 58Z"
+              fill="#F4C0D1" opacity="0.7">
+          <animateTransform attributeName="transform" type="translate" values="0,0;0,-3;0,0" dur="1.7s" begin="0.4s" repeatCount="indefinite"/>
+        </path>
+
+        <text x="100" y="172" text-anchor="middle"
+              font-size="12" font-family="'Cormorant Garamond', Georgia, serif" font-weight="500" fill="#72243E">
+          Rusvel &amp; Karina
+        </text>
+        <text x="100" y="188" text-anchor="middle"
+              font-size="10" font-family="'Lato', sans-serif" font-weight="300" letter-spacing="2" fill="#993556">
+          02 · MAYO · 2026
+        </text>
+      </svg>
     </div>
+
+    <div class="gift-shadow"></div>
+    <p class="hint-text">Toca para elegir un regalo</p>
   </div>
 
 </div>
@@ -855,7 +936,40 @@
 
 <div id="toast">✓ Copiado al portapapeles</div>
 
+<!-- Modal general -->
+<div id="modal">
+  <div class="modal-box">
+    <h3>Reserva realizada</h3>
+    <p id="modal-text">Tu regalo fue reservado con éxito.</p>
+    <button class="modal-btn" onclick="cerrarModal()">Aceptar</button>
+  </div>
+</div>
 
+<!-- Modal de lista de regalos -->
+<div class="overlay" id="overlay">
+  <div class="gift-modal">
+    <div id="mainView">
+      <div class="gift-modal-header">
+        <svg class="gift-modal-icon" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M16 28 C16 28,3 19,3 11 C3 7,6 4,10 4 C12.8 4,15 5.8,16 7.5 C17 5.8,19.2 4,22 4 C26 4,29 7,29 11 C29 19,16 28,16 28Z" fill="#D4537E"/>
+        </svg>
+        <span class="gift-modal-title">Elige tu regalo</span>
+      </div>
+      <p class="gift-modal-sub">Un detalle especial para los novios</p>
+      <ul class="gift-list" id="giftList"></ul>
+      <div class="gift-modal-actions">
+        <button class="btn-cancel" onclick="closeGiftModal()">Cancelar</button>
+        <button class="btn-ok" id="btnOk" disabled onclick="confirmGift()">Reservar regalo</button>
+      </div>
+    </div>
+
+    <div class="gift-success-view" id="successView">
+      <p class="gift-success-title">¡Regalo reservado!</p>
+      <p class="gift-success-name" id="sName"></p>
+      <p class="gift-success-msg">Gracias por acompañarnos en este día tan especial</p>
+    </div>
+  </div>
+</div>
 
 <script>
 const observer = new IntersectionObserver(entries => {
@@ -869,7 +983,7 @@ const observer = new IntersectionObserver(entries => {
 document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 
 let regalosCache = [];
-let ultimoIndice = -1;
+let selectedGift = null;
 
 function showToast(msg) {
   const t = document.getElementById('toast');
@@ -939,62 +1053,28 @@ function cerrarModal() {
   if (modal) modal.style.display = "none";
 }
 
-function escapeHtml(text) {
-  return String(text)
-    .replace(/&/g, "&amp;")
-    .replace(/"/g, "&quot;")
-    .replace(/'/g, "&#39;")
-    .replace(/</g, "&lt;")
-    .replace(/>/g, "&gt;");
+async function cargarRegalos() {
+  const res = await fetch("https://opensheet.elk.sh/1NZ0znTtxD9yRMIf6bqeyPHWY6RGcnhfDL1SZ4Y9-AwE/Hoja%201");
+  const data = await res.json();
+  regalosCache = data.filter(item => (item["Regalo"] || "").trim() !== "");
 }
 
-function imagenPorProducto(regalo) {
-  const r = regalo.toLowerCase();
+function iconoPorProducto(regalo) {
+  const r = regalo.toLowerCase().trim();
 
-  if (r.includes("cubiertos de acero inoxidable")) return "img/regalos/cubiertos-acero.jpg";
-  if (r.includes("juego de vasos y jarra")) return "img/regalos/vasos-jarra.jpg";
-  if (r.includes("tetera")) return "img/regalos/tetera.jpg";
-  if (r.includes("juego de copas")) return "img/regalos/juego-copas.jpg";
-  if (r.includes("bowl")) return "img/regalos/bowl.jpg";
-  if (r.includes("vajilla completa")) return "img/regalos/vajilla-completa.jpg";
-  if (r.includes("cafetera")) return "img/regalos/cafetera.jpg";
-  if (r.includes("freidora de aire")) return "img/regalos/freidora-aire.jpg";
-  if (r.includes("batidora")) return "img/regalos/batidora.jpg";
-  if (r.includes("set de utensilios de cocina")) return "img/regalos/utensilios-cocina.jpg";
-  if (r.includes("escurridor de platos")) return "img/regalos/escurridor-platos.jpg";
-  if (r.includes("Plancha")) return "img/regalos/plancha.jpg";
-  if (r.includes("set de cuchillos")) return "img/regalos/set-cuchillos.jpg";
-  if (r.includes("Lavadora")) return "img/regalos/lavadora.jpg";
-  if (r.includes("microondas")) return "img/regalos/microondas.jpg";
-  if (r.includes("frigider") || r.includes("refrigerador") || r.includes("frigobar")) return "img/regalos/refrigerador.jpg";
-
-
-  if (r.includes("licuadora")) return "img/regalos/licuadora.jpg";
-  if (r.includes("olla arrocera")) return "img/regalos/olla-arrocera.jpg";
-  if (r.includes("juego de ollas")) return "img/regalos/juego-ollas.jpg";
-  if (r.includes("sartenes")) return "img/regalos/sartenes.jpg";
-  if (r.includes("juego de sábanas bajeras queen")) return "img/regalos/sabanas-bajeras.jpg";
-  if (r.includes("juego de sábanas lisas queen")) return "img/regalos/sabanas-queen.jpg";
-  if (r.includes("edredón")) return "img/regalos/edredon.jpg";
-  if (r.includes("edredón1")) return "img/regalos/edredon1.jpg";
-  if (r.includes("edredón2")) return "img/regalos/edredon2.jpg";
-  if (r.includes("toallas")) return "img/regalos/toallas.jpg";
-  if (r.includes("lámpara")) return "img/regalos/lampara.jpg";
-  if (r.includes("plantas")) return "img/regalos/plantas.jpg";
-  if (r.includes("espejo")) return "img/regalos/espejo.jpg";
-  if (r.includes("espejo de baño")) return "img/regalos/espejo-baño.jpg";
-  if (r.includes("mesa de centro")) return "img/regalos/mesa-centro.jpg";
-  if (r.includes("puff")) return "img/regalos/puff.jpg";
-  if (r.includes("repisa")) return "img/regalos/repisa.jpg";
-  if (r.includes("organizador")) return "img/regalos/organizador.jpg";
-  if (r.includes("cesta")) return "img/regalos/cesta.jpg";
-
-  return "img/regalos/default.jpg";
-}
-
-function heartPorProducto(regalo) {
-  const r = regalo.toLowerCase();
-
+  if (r.includes("cubiertos")) return "🍴";
+  if (r.includes("vasos")) return "🥛";
+  if (r.includes("tetera")) return "🫖";
+  if (r.includes("copas")) return "🥂";
+  if (r.includes("bowl")) return "🥣";
+  if (r.includes("vajilla")) return "🍽";
+  if (r.includes("cafetera")) return "☕";
+  if (r.includes("freidora")) return "🍟";
+  if (r.includes("batidora")) return "🧁";
+  if (r.includes("utensilios")) return "🍳";
+  if (r.includes("escurridor")) return "🧺";
+  if (r.includes("plancha")) return "✨";
+  if (r.includes("cuchillos")) return "🔪";
   if (r.includes("licuadora")) return "🥤";
   if (r.includes("olla")) return "🍚";
   if (r.includes("sábanas")) return "🛏";
@@ -1003,14 +1083,80 @@ function heartPorProducto(regalo) {
   if (r.includes("lámpara")) return "✨";
   if (r.includes("plantas")) return "🌿";
   if (r.includes("espejo")) return "🪞";
-  if (r.includes("tetera")) return "🫖";
+  if (r.includes("mesa de centro")) return "🪵";
+  if (r.includes("puff")) return "🛋";
+  if (r.includes("repisa")) return "🧴";
+  if (r.includes("organizador")) return "🧼";
+  if (r.includes("cesta")) return "🧺";
+  if (r.includes("lavadora")) return "🫧";
+  if (r.includes("microondas")) return "🔥";
+  if (r.includes("frigider") || r.includes("refrigerador") || r.includes("frigobar")) return "❄️";
+  if (r.includes("experiencias")) return "🎁";
 
   return "💕";
 }
 
-function reservar(regalo, btn) {
-  btn.disabled = true;
-  btn.innerHTML = "Reservando...";
+function openGiftModal() {
+  buildGiftList();
+  document.getElementById("overlay").classList.add("active");
+  document.getElementById("mainView").style.display = "";
+  document.getElementById("successView").style.display = "none";
+  document.getElementById("btnOk").disabled = true;
+  selectedGift = null;
+}
+
+function closeGiftModal() {
+  document.getElementById("overlay").classList.remove("active");
+}
+
+function buildGiftList() {
+  const ul = document.getElementById("giftList");
+  ul.innerHTML = "";
+
+  regalosCache.forEach((item, i) => {
+    const regalo = (item["Regalo"] || "").trim();
+    let estado = (item["Estado"] || "").trim().toLowerCase();
+    if (!estado) estado = "disponible";
+
+    const li = document.createElement("li");
+    li.className = "gift-item";
+    li.dataset.index = i;
+
+    const reservado = estado === "reservado";
+    if (reservado) li.classList.add("disabled");
+
+    li.innerHTML = `
+      <span class="dot"></span>
+      <span class="gift-ico">${iconoPorProducto(regalo)}</span>
+      <span>${regalo}</span>
+      ${reservado ? `<span class="gift-status">Reservado</span>` : ``}
+    `;
+
+    if (!reservado) {
+      li.addEventListener("click", () => pickGift(i));
+    }
+
+    ul.appendChild(li);
+  });
+}
+
+function pickGift(i) {
+  selectedGift = regalosCache[i];
+
+  document.querySelectorAll(".gift-item").forEach((el, idx) => {
+    el.classList.toggle("sel", idx === i);
+  });
+
+  document.getElementById("btnOk").disabled = false;
+}
+
+function confirmGift() {
+  if (!selectedGift) return;
+
+  const regalo = (selectedGift["Regalo"] || "").trim();
+  const btnOk = document.getElementById("btnOk");
+  btnOk.disabled = true;
+  btnOk.textContent = "Reservando...";
 
   fetch("https://script.google.com/macros/s/AKfycbyoJNPNo6z78HokEZ5yY_yk1rlTeOTjp88MWdt-ImiAIdeYH_7mLHTDvYRYsv-UMK7yIA/exec", {
     method: "POST",
@@ -1018,147 +1164,42 @@ function reservar(regalo, btn) {
     headers: {
       "Content-Type": "application/json"
     },
-    body: JSON.stringify({
-      regalo: regalo
-    })
+    body: JSON.stringify({ regalo })
   })
-  .then(() => {
-    mostrarModal("🎁 ¡Regalo reservado con éxito!");
+  .then(async () => {
+    document.getElementById("mainView").style.display = "none";
+    const sv = document.getElementById("successView");
+    sv.style.display = "flex";
+    document.getElementById("sName").textContent = `"${regalo}"`;
+
+    await cargarRegalos();
+
     setTimeout(() => {
-      cerrarModal();
-      cargarRegalos();
-    }, 1800);
+      closeGiftModal();
+      btnOk.textContent = "Reservar regalo";
+      btnOk.disabled = true;
+    }, 2500);
   })
   .catch(() => {
-    btn.disabled = false;
-    btn.innerHTML = "Reservar regalo";
+    btnOk.textContent = "Reservar regalo";
+    btnOk.disabled = false;
     mostrarModal("No se pudo completar la reserva. Inténtalo nuevamente.");
   });
 }
 
-async function cargarRegalos() {
-  const res = await fetch("https://opensheet.elk.sh/1NZ0znTtxD9yRMIf6bqeyPHWY6RGcnhfDL1SZ4Y9-AwE/Hoja%201");
-  const data = await res.json();
+document.getElementById("overlay").addEventListener("click", function(e) {
+  if (e.target === this) closeGiftModal();
+});
 
-  regalosCache = data.filter(item => (item["Regalo"] || "").trim() !== "");
-  renderRegaloRandom();
-}
+document.getElementById("giftBtn").addEventListener("click", openGiftModal);
+document.getElementById("giftBtn").addEventListener("keydown", function(e) {
+  if (e.key === "Enter" || e.key === " ") openGiftModal();
+});
 
-function renderRegaloRandom() {
-  const container = document.getElementById("lista-regalos");
-  if (!container) return;
-
-  container.innerHTML = "";
-
-  if (!regalosCache.length) {
-    container.innerHTML = `
-      <div class="gift-card">
-        <div class="gift-body">
-          <div class="gift-title">No hay regalos disponibles</div>
-          <div class="gift-meta">Vuelve a intentarlo más tarde.</div>
-        </div>
-      </div>
-    `;
-    return;
-  }
-
-  let indice;
-  do {
-    indice = Math.floor(Math.random() * regalosCache.length);
-  } while (regalosCache.length > 1 && indice === ultimoIndice);
-
-  ultimoIndice = indice;
-
-  const item = regalosCache[indice];
-
-  const regalo = (item["Regalo"] || "").trim();
-  let estado = (item["Estado"] || "").trim().toLowerCase();
-
-  const enlaceA = (item["Enlace A"] || "").trim();
-  const enlaceB = (item["Enlace B"] || "").trim();
-  const enlaceC = (item["Enlace C"] || "").trim();
-
-  if (!regalo) return;
-  if (!estado) estado = "disponible";
-
-  const reserved = estado === "reservado";
-  const image = imagenPorProducto(regalo);
-  const heart = heartPorProducto(regalo);
-
-  let links = "";
-  if (enlaceA) links += `<a class="gift-link" href="${enlaceA}" target="_blank">Ver opción 1</a>`;
-  if (enlaceB) links += `<a class="gift-link" href="${enlaceB}" target="_blank">Ver opción 2</a>`;
-  if (enlaceC) links += `<a class="gift-link" href="${enlaceC}" target="_blank">Ver opción 3</a>`;
-
-  let ribbon = "";
-  if (reserved) {
-    ribbon = `<div class="gift-ribbon">Reservado</div>`;
-  }
-
-  container.innerHTML = `
-    <div class="gift-card ${reserved ? "reserved" : ""} reveal">
-      ${ribbon}
-      <div class="gift-top">
-        <img src="${image}" alt="${regalo}" class="gift-photo">
-        <div class="gift-heart">${heart}</div>
-      </div>
-
-      <div class="gift-body">
-        <div class="gift-title">${regalo}</div>
-        <div class="gift-meta">
-          ${reserved ? "Este regalo ya fue elegido ❤️" : "Regalo especial para nuestro hogar"}
-        </div>
-
-        <div class="gift-links">
-          ${links}
-        </div>
-
-        ${
-          reserved
-            ? `<div class="gift-reserved">Este regalo ya fue reservado 💕</div>`
-            : `
-              <button
-                class="gift-btn reservar-btn"
-                data-regalo="${escapeHtml(regalo)}">
-                Reservar regalo
-              </button>
-            `
-        }
-      </div>
-    </div>
-  `;
-
-  const btn = container.querySelector(".reservar-btn");
-  if (btn) {
-    btn.addEventListener("click", function () {
-      const regaloValue = this.getAttribute("data-regalo");
-      reservar(regaloValue, this);
-    });
-  }
-
-  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
-}
-
-
-function mostrarOtroRegalo() {
-  renderRegaloRandom();
-}
-
-window.addEventListener("load", () => {
-  cargarRegalos();
+window.addEventListener("load", async () => {
+  await cargarRegalos();
   setInterval(cargarRegalos, 10000);
 });
 </script>
-
-
-
-<div id="modal">
-  <div class="modal-box">
-    <h3>Reserva realizada</h3>
-    <p id="modal-text">Tu regalo fue reservado con éxito.</p>
-    <button class="modal-btn" onclick="cerrarModal()">Aceptar</button>
-  </div>
-</div>
-
 </body>
 </html>
