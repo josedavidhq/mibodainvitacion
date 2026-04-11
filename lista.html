@@ -985,20 +985,7 @@ function heartPorProducto(regalo) {
   return "💕";
 }
 
-function reservar(regalo, inputId, btn) {
-  const input = document.getElementById(inputId);
-  if (!input) {
-    mostrarModal("No se encontró el campo para escribir tu nombre.");
-    return;
-  }
-
-  const nombreVisible = input.value.trim();
-
-  if (!nombreVisible) {
-    mostrarModal("Por favor, escribe tu nombre antes de reservar el regalo.");
-    return;
-  }
-
+function reservar(regalo, btn) {
   btn.disabled = true;
   btn.innerHTML = "Reservando...";
 
