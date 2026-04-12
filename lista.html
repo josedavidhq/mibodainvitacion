@@ -846,6 +846,24 @@ footer .ornament .line.r {
 footer .ornament .diamond {
   background: #d9b7c4;
 }
+
+
+
+
+
+
+
+
+
+.clickable-img {
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.clickable-img:hover {
+  transform: scale(1.08);
+  box-shadow: 0 6px 14px rgba(0,0,0,0.12);
+}
 </style>
 </head>
 <body>
@@ -1248,11 +1266,25 @@ function buildGiftList() {
     const reservado = estado === "reservado";
     if (reservado) li.classList.add("disabled");
 
-    const imagen = iconoPorProducto(regalo);
+    //const imagen = iconoPorProducto(regalo);
+    const enlace = (item["Enlace A"] || "").trim();
 
     li.innerHTML = `
       <span class="dot"></span>
-      <img src="${imagen}" alt="${regalo}" class="gift-thumb">
+
+
+
+
+      ${
+          enlace
+            ? `<a href="${enlace}" target="_blank">
+                <img src="${imagen}" alt="${regalo}" class="gift-thumb clickable-img">
+              </a>`
+            : `<img src="${imagen}" alt="${regalo}" class="gift-thumb">`
+        }
+
+
+
       <span>${regalo}</span>
       ${reservado ? `<span class="gift-status">Reservado</span>` : ``}
     `;
