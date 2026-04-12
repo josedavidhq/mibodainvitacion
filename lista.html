@@ -1195,9 +1195,11 @@ async function cargarRegalos() {
   regalosCache = data.filter(item => (item["Regalo"] || "").trim() !== "");
 }
 
+
 function iconoPorProducto(regalo) {
   const r = regalo.toLowerCase().trim();
 
+  // Cocina y menaje
   if (r.includes("cubiertos de acero inoxidable")) return "img/regalos/cubiertos-acero.jpg";
   if (r.includes("juego de vasos y jarra")) return "img/regalos/vasos-jarra.jpg";
   if (r.includes("tetera")) return "img/regalos/tetera.jpg";
@@ -1211,39 +1213,47 @@ function iconoPorProducto(regalo) {
   if (r.includes("escurridor de platos")) return "img/regalos/escurridor-platos.jpg";
   if (r.includes("plancha")) return "img/regalos/plancha.jpg";
   if (r.includes("set de cuchillos")) return "img/regalos/set-cuchillos.jpg";
-  if (r.includes("lavadora")) return "img/regalos/lavadora.jpg";
-  if (r.includes("microondas")) return "img/regalos/microondas.jpg";
-  if (r.includes("frigider") || r.includes("refrigerador") || r.includes("frigobar")) return "img/regalos/refrigerador.jpg";
-  if (r.includes("TV samsumg qled")) return "img/regalos/tv.jpg";   
-  if (r.includes("Vaporizador de mano")) return "img/regalos/vaporizador.jpg";
-  if (r.includes("Aspiradora Robot")) return "img/regalos/aspiradora.jpg";   
-  if (r.includes("Extractora Oster")) return "img/regalos/extractora.jpg"; 
-  if (r.includes("cocina empotrable Klimatic")) return "img/regalos/empotable.jpg";   
-  if (r.includes("Horno empotrable Midea")) return "img/regalos/horno.jpg";
-
-  if (r.includes("licuadora")) return "img/regalos/licuadora.jpg";  
-  if (r.includes("Exprimidor de cítricos Oster")) return "img/regalos/exprimidor.jpg";
+  if (r.includes("exprimidor de cítricos oster") || r.includes("exprimidor de citricos oster")) return "img/regalos/exprimidor.jpg";
+  if (r.includes("extractora oster")) return "img/regalos/extractora.jpg";
+  if (r.includes("licuadora")) return "img/regalos/licuadora.jpg";
   if (r.includes("olla arrocera")) return "img/regalos/olla-arrocera.jpg";
   if (r.includes("juego de ollas")) return "img/regalos/juego-ollas.jpg";
   if (r.includes("sartenes")) return "img/regalos/sartenes.jpg";
-  if (r.includes("juego de sábanas bajeras queen")) return "img/regalos/sabanas-bajeras.jpg";
-  if (r.includes("juego de sábanas lisas queen")) return "img/regalos/sabanas-queen.jpg";
+
+  // Electrodomésticos / línea blanca
+  if (r.includes("lavadora")) return "img/regalos/lavadora.jpg";
+  if (r.includes("microondas")) return "img/regalos/microondas.jpg";
+  if (r.includes("refrigerador") || r.includes("frigobar") || r.includes("frigider")) return "img/regalos/refrigerador.jpg";
+  if (r.includes("tv samsung qled") || r.includes("tv samsumg qled")) return "img/regalos/tv.jpg";
+  if (r.includes("vaporizador de mano")) return "img/regalos/vaporizador.jpg";
+  if (r.includes("aspiradora robot")) return "img/regalos/aspiradora.jpg";
+  if (r.includes("cocina empotrable klimatic")) return "img/regalos/empotrable.jpg";
+  if (r.includes("horno empotrable midea")) return "img/regalos/horno.jpg";
+
+  // Dormitorio / baño / decoración
+  if (r.includes("juego de sábanas bajeras queen") || r.includes("juego de sábanas bajeras")) return "img/regalos/sabanas-bajeras.jpg";
+  if (r.includes("juego de sábanas lisas queen") || r.includes("juego de sábanas lisas")) return "img/regalos/sabanas-queen.jpg";
   if (r.includes("edredón shepar queen")) return "img/regalos/edredon1.jpg";
   if (r.includes("edredón queen")) return "img/regalos/edredon2.jpg";
   if (r.includes("toallas")) return "img/regalos/toallas.jpg";
-  if (r.includes("lámpara")) return "img/regalos/lampara.jpg";
-  if (r.includes("plantas")) return "img/regalos/planta.jpg";
-  if (r.includes("espejo de baño")) return "img/regalos/espejo-baño.jpg";
+  if (r.includes("espejo de baño") || r.includes("espejo de bano")) return "img/regalos/espejo-bano.jpg";
   if (r.includes("espejo")) return "img/regalos/espejo.jpg";
+  if (r.includes("lámpara") || r.includes("lampara")) return "img/regalos/lampara.jpg";
+  if (r.includes("plantas")) return "img/regalos/planta.jpg";
   if (r.includes("mesa de centro")) return "img/regalos/mesa-centro.jpg";
   if (r.includes("puff")) return "img/regalos/puff.jpg";
   if (r.includes("repisa")) return "img/regalos/repisa.jpg";
   if (r.includes("organizador")) return "img/regalos/organizador.jpg";
   if (r.includes("cesta")) return "img/regalos/cesta.jpg";
+
+  // Otros
   if (r.includes("experiencias")) return "img/regalos/experiencias.jpg";
 
   return "img/regalos/agregar-producto.jpg";
 }
+
+
+
 
 function openGiftModal() {
   buildGiftList();
