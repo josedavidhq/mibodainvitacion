@@ -1178,38 +1178,45 @@ async function cargarRegalos() {
 
 function iconoPorProducto(regalo) {
   const r = regalo.toLowerCase().trim();
-  if (r.includes("cubiertos")) return "🍴";
-  if (r.includes("vasos")) return "🥛";
-  if (r.includes("tetera")) return "🫖";
-  if (r.includes("copas")) return "🥂";
-  if (r.includes("bowl")) return "img/regalos/bowl.jpg";
-  if (r.includes("vajilla")) return "🍽";
-  if (r.includes("cafetera")) return "☕";
-  if (r.includes("freidora")) return "🍟";
-  if (r.includes("batidora")) return "🧁";
-  if (r.includes("utensilios")) return "🍳";
-  if (r.includes("escurridor")) return "🧺";
-  if (r.includes("plancha")) return "✨";
-  if (r.includes("cuchillos")) return "🔪";
-  if (r.includes("licuadora")) return "🥤";
-  if (r.includes("olla")) return "🍚";
-  if (r.includes("sábanas")) return "🛏";
-  if (r.includes("edredón")) return "🤍";
-  if (r.includes("toallas")) return "🧺";
-  if (r.includes("lámpara")) return "✨";
-  if (r.includes("plantas")) return "🌿";
-  if (r.includes("espejo")) return "🪞";
-  if (r.includes("mesa de centro")) return "🪵";
-  if (r.includes("puff")) return "🛋";
-  if (r.includes("repisa")) return "🧴";
-  if (r.includes("organizador")) return "🧼";
-  if (r.includes("cesta")) return "🧺";
-  if (r.includes("lavadora")) return "🫧";
-  if (r.includes("microondas")) return "🔥";
-  if (r.includes("frigider") || r.includes("refrigerador") || r.includes("frigobar")) return "❄️";
-  if (r.includes("experiencias")) return "🎁";
 
-  return "💕";
+  if (r.includes("cubiertos de acero inoxidable")) return "img/regalos/cubiertos-acero.jpg";
+  if (r.includes("juego de vasos y jarra")) return "img/regalos/vasos-jarra.jpg";
+  if (r.includes("tetera")) return "img/regalos/tetera.jpg";
+  if (r.includes("juego de copas")) return "img/regalos/juego-copas.jpg";
+  if (r.includes("bowl")) return "img/regalos/bowl.jpg";
+  if (r.includes("vajilla completa")) return "img/regalos/vajilla-completa.jpg";
+  if (r.includes("cafetera")) return "img/regalos/cafetera.jpg";
+  if (r.includes("freidora de aire")) return "img/regalos/freidora-aire.jpg";
+  if (r.includes("batidora")) return "img/regalos/batidora.jpg";
+  if (r.includes("set de utensilios de cocina")) return "img/regalos/utensilios-cocina.jpg";
+  if (r.includes("escurridor de platos")) return "img/regalos/escurridor-platos.jpg";
+  if (r.includes("plancha")) return "img/regalos/plancha.jpg";
+  if (r.includes("set de cuchillos")) return "img/regalos/set-cuchillos.jpg";
+  if (r.includes("lavadora")) return "img/regalos/lavadora.jpg";
+  if (r.includes("microondas")) return "img/regalos/microondas.jpg";
+  if (r.includes("frigider") || r.includes("refrigerador") || r.includes("frigobar")) return "img/regalos/refrigerador.jpg";
+
+  if (r.includes("licuadora")) return "img/regalos/licuadora.jpg";
+  if (r.includes("olla arrocera")) return "img/regalos/olla-arrocera.jpg";
+  if (r.includes("juego de ollas")) return "img/regalos/juego-ollas.jpg";
+  if (r.includes("sartenes")) return "img/regalos/sartenes.jpg";
+  if (r.includes("juego de sábanas bajeras queen")) return "img/regalos/sabanas-bajeras.jpg";
+  if (r.includes("juego de sábanas lisas queen")) return "img/regalos/sabanas-queen.jpg";
+  if (r.includes("edredón shepar queen")) return "img/regalos/edredon1.jpg";
+  if (r.includes("edredón queen")) return "img/regalos/edredon2.jpg";
+  if (r.includes("toallas")) return "img/regalos/toallas.jpg";
+  if (r.includes("lámpara")) return "img/regalos/lampara.jpg";
+  if (r.includes("plantas")) return "img/regalos/plantas.jpg";
+  if (r.includes("espejo de baño")) return "img/regalos/espejo-bano.jpg";
+  if (r.includes("espejo")) return "img/regalos/espejo.jpg";
+  if (r.includes("mesa de centro")) return "img/regalos/mesa-centro.jpg";
+  if (r.includes("puff")) return "img/regalos/puff.jpg";
+  if (r.includes("repisa")) return "img/regalos/repisa.jpg";
+  if (r.includes("organizador")) return "img/regalos/organizador.jpg";
+  if (r.includes("cesta")) return "img/regalos/cesta.jpg";
+  if (r.includes("experiencias")) return "img/regalos/experiencias.jpg";
+
+  return "img/regalos/default.jpg";
 }
 
 function openGiftModal() {
